@@ -127,7 +127,20 @@ section{margin:48px 0 0}
 .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:8px}
 .dow,.day{text-align:center; padding:8px 0; border-radius:10px; font-weight:700}
 .dow{color:var(--muted); text-transform:uppercase; font-size:12px; letter-spacing:.08em}
-.day{position:relative; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); cursor:pointer}
+.day{
+  position:relative;
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.05);
+  cursor:pointer;
+  color:var(--ink);
+  font-weight:700;
+}
+  .day:hover{background:rgba(255,255,255,.08)}
+
 .day.muted{opacity:.35}
 .day.today{outline:2px solid var(--cyan)}
 .day.unavailable{background:rgba(255,77,109,.10); border-color:rgba(255,77,109,.25)}
