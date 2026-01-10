@@ -550,6 +550,7 @@ var unavailable   = new Set();
       return; // IMPORTANT: resolve so the page can render
     });
 }
+var recurring = [];
 
   function markClassForDate(d){
     var iso = toISO(d);
@@ -574,7 +575,6 @@ var unavailable   = new Set();
       var d = new Date(year, month-1, prevMonthLastDay - i + 1);
       calBody.insertAdjacentHTML("beforeend", '<div class="day muted" aria-disabled="true">'+d.getDate()+'</div>');
     }
-    renderCalendar();
     for(var day=1; day<=daysInMonth; day++){
       var d2 = new Date(year, month, day); var iso = toISO(d2); var classes = ["day"]; var mark = markClassForDate(d2);
       if(mark) classes.push(mark); if(iso===todayISO) classes.push("today");
