@@ -479,12 +479,7 @@ footer{margin:52px 0 0; opacity:.85}
   });
 
   /* Gigs */
-  var upcomingSets = [
-    { date:"2025-11-14", when:"Fri • 11:30 PM", venue:"Temple Nightclub", city:"San Francisco, CA", type:"public" },
-    { date:"2025-11-21", when:"Fri • 10:00 PM", venue:"Berkeley Social Club", city:"Berkeley, CA", type:"public" },
-    { date:"2025-11-22", when:"Sat • 8:00 PM", venue:"Private Event", city:"Oakland, CA", type:"private" },
-    { date:"2025-12-05", when:"Fri • 11:00 PM", venue:"Public Works", city:"San Francisco, CA", type:"public" }
-  ];
+ var upcomingSets = [];
   var gigsEl = document.getElementById('gigs');
   function fmtDateISOToPretty(iso){
     var d = new Date(iso + "T00:00:00");
@@ -514,7 +509,6 @@ footer{margin:52px 0 0; opacity:.85}
       gigsEl.insertAdjacentHTML("beforeend", html);
     });
   }
-  drawGigs();
 
   /* Calendar */
   var calHead = document.getElementById('calHead');
@@ -530,10 +524,31 @@ footer{margin:52px 0 0; opacity:.85}
   function pad2(n){return n<10? "0"+n : ""+n}
   function toISO(d){ return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()) }
 
-  var bookedPublic = new Set(["2025-11-14","2025-11-21","2025-12-05"]);
-  var bookedPrivate = new Set(["2025-11-22"]);
-  var unavailable   = new Set(["2025-11-27"]);
-  var recurring = [{ label:"First Thursdays Residency", match:function(d){return d.getDay()===4 && d.getDate()<=7;}, markAs:"public" }];
+ var bookedPublic  = new Set();
+var bookedPrivate = new Set();
+var unavailable   = new Set();
+  function loadSchedule(){
+  return fetch("assets/data/schedule.json", { cache: "no-store" })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      bookedPublic  = new Set((data.bookedPublic  || []).map(String));
+      bookedPrivate = new Set((data.bookedPrivate || []).map(String));
+      unavailable   = new Set((data.unavailable   || []).map(String));
+
+      // Auto-hide past gigs
+      upcomingSets = (data.upcomingSets || []).slice().filter(function(g){
+        var gigDate = new Date(g.date + "T00:00:00");
+        var today = new Date(); today.setHours(0,0,0,0);
+        return gigDate >= today;
+      });
+    })
+    .catch(function(){
+      bookedPublic  = new Set();
+      bookedPrivate = new Set();
+      unavailable   = new Set();
+      upcomingSets  = [];
+    });
+}
 
   function markClassForDate(d){
     var iso = toISO(d);
@@ -567,7 +582,10 @@ footer{margin:52px 0 0; opacity:.85}
     var cells = calBody.querySelectorAll(".day, .day.muted").length;
     var remainder = cells % 7; if(remainder){ var add = 7 - remainder; for(var j=1;j<=add;j++){ var d3 = new Date(year, month+1, j); calBody.insertAdjacentHTML("beforeend", '<div class="day muted" aria-disabled="true">'+d3.getDate()+'</div>'); } }
   }
+  loadSchedule().then(function(){
+  drawGigs();
   renderCalendar();
+});
   prevBtn.addEventListener("click", function(){ view.setMonth(view.getMonth()-1); renderCalendar(); });
   nextBtn.addEventListener("click", function(){ view.setMonth(view.getMonth()+1); renderCalendar(); });
   calBody.addEventListener("click", function(e){
