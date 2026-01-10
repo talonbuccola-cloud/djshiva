@@ -574,6 +574,7 @@ var unavailable   = new Set();
       var d = new Date(year, month-1, prevMonthLastDay - i + 1);
       calBody.insertAdjacentHTML("beforeend", '<div class="day muted" aria-disabled="true">'+d.getDate()+'</div>');
     }
+    renderCalendar();
     for(var day=1; day<=daysInMonth; day++){
       var d2 = new Date(year, month, day); var iso = toISO(d2); var classes = ["day"]; var mark = markClassForDate(d2);
       if(mark) classes.push(mark); if(iso===todayISO) classes.push("today");
@@ -583,10 +584,12 @@ var unavailable   = new Set();
     var cells = calBody.querySelectorAll(".day, .day.muted").length;
     var remainder = cells % 7; if(remainder){ var add = 7 - remainder; for(var j=1;j<=add;j++){ var d3 = new Date(year, month+1, j); calBody.insertAdjacentHTML("beforeend", '<div class="day muted" aria-disabled="true">'+d3.getDate()+'</div>'); } }
   }
-  loadSchedule().then(function(){
-  drawGigs();
-  renderCalendar();
-});
+  loadSchedule()
+  .catch(function(){})
+  .then(function(){
+    drawGigs();
+    renderCalendar();
+  });
   prevBtn.addEventListener("click", function(){ view.setMonth(view.getMonth()-1); renderCalendar(); });
   nextBtn.addEventListener("click", function(){ view.setMonth(view.getMonth()+1); renderCalendar(); });
   calBody.addEventListener("click", function(e){
