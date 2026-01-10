@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DJ SHIVA — Oakland / Bay Area</title>
+<meta name="description" content="DJ Shiva (Tiffany) — Oakland & San Francisco Bay Area club DJ. Neon-driven sets, bass-forward sound. Bookings open." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#07060a; --bg-2:#0b0a12; --ink:#f5f3f8; --muted:#b9b0c9;
+  --pink:#ff2aa3; --magenta:#ff0088; --violet:#b300ff; --lav:#c86bff; --cyan:#00e5ff; --card:#121022;
+  --ok:#46e38e; --warn:#ffb020; --danger:#ff4d6d; --radius:18px; --shadow:0 18px 60px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box}
+
+/* native anchor scroll in standalone; we’ll drive scroll via JS for CTAs */
+html{scroll-behavior:auto}
+
+html,body{
+  min-height:100%; max-width:100%;
+  overflow-x:hidden;
+  overscroll-behavior:auto;
+  -webkit-font-smoothing:antialiased;
+}
+body{
+  margin:0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1100px 520px at 15% -10%, rgba(255,0,136,.20), transparent 60%),
+    radial-gradient(1000px 620px at 110% 10%, rgba(179,0,255,.18), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg-2));
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation; /* CLICK FIX: iOS tap responsiveness */
+}
+a{color:var(--cyan); text-decoration:none}
+.container{max-width:1120px; margin:0 auto; padding:28px 20px 64px}
+
+/* HERO */
+.hero{
+  position:relative; margin:24px 0 32px; padding:32px 20px 56px; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+  isolation:isolate;
+}
+.hero::before,
+.hero::after{content:""; position:absolute; inset:0; pointer-events:none; z-index:0;}
+.hero::before{
+  inset:-10%;
+  background:conic-gradient(from 180deg at 50% 50%, var(--violet), var(--pink), var(--magenta), var(--violet));
+  filter:blur(80px) saturate(140%); opacity:.10; animation:sweep 12s linear infinite;
+}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.hero::after{
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px) 0 0/28px 28px,
+    linear-gradient(0deg,  rgba(255,255,255,.06) 1px, transparent 1px) 0 0/28px 28px;
+  -webkit-mask-image:radial-gradient(circle at 30% -20%, rgba(0,0,0,.55), transparent 65%);
+          mask-image:radial-gradient(circle at 30% -20%, rgba(0,0,0,.55), transparent 65%);
+  opacity:.12;
+}
+.hero-grid{position:relative; z-index:2; display:grid; gap:28px; grid-template-columns:1.2fr .8fr}
+@media (max-width:920px){.hero-grid{grid-template-columns:1fr}}
+.tag{display:inline-flex; align-items:center; gap:8px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
+  color:#0b0b12; background:linear-gradient(90deg, var(--pink), var(--violet)); padding:8px 12px; border-radius:999px;
+  box-shadow:0 6px 24px rgba(255,42,163,.45);}
+.title{font-family:Michroma,sans-serif; font-size:clamp(38px,5.4vw,72px); line-height:1.02; letter-spacing:.02em; margin:12px 0 10px;
+  background:linear-gradient(90deg, var(--pink), var(--lav), var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 28px rgba(255,42,163,.22);}
+.subtitle{color:var(--muted); font-size:clamp(15px,2.2vw,18px); line-height:1.6; max-width:56ch; margin-bottom:22px}
+
+/* CLICK FIX: raise buttons and make sure nothing intercepts taps */
+.cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; position:relative; z-index:10}
+.cta-row a{position:relative; z-index:11; pointer-events:auto; touch-action:manipulation; cursor:pointer}
+.hero *{pointer-events:auto} /* belt-and-suspenders for iOS hit-testing */
+
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 18px; border-radius:14px;
+  border:1px solid rgba(255,255,255,.16); font-weight:800; color:var(--ink); transition:.25s ease;
+  background:linear-gradient(90deg, rgba(255,42,163,.85), rgba(179,0,255,.85)); box-shadow:0 10px 34px rgba(255,42,163,.32);}
+.btn:hover{transform:translateY(-2px); box-shadow:0 16px 44px rgba(179,0,255,.36)}
+.btn.ghost{background:transparent; border-color:rgba(255,255,255,.18); box-shadow:none}
+
+.hero-media{
+  position:relative; border-radius:var(--radius); overflow:hidden; min-height:340px; isolation:isolate;
+  box-shadow:var(--shadow), 0 0 0 6px rgba(255,42,163,.10), 0 26px 80px 10px rgba(255,42,163,.35), 0 52px 140px 18px rgba(179,0,255,.28);
+  z-index:1;
+  pointer-events:none; /* ensures the image never steals taps */
+}
+.hero-media::before{content:""; position:absolute; inset:-2px; border-radius:inherit; z-index:0;
+  background:linear-gradient(90deg, var(--pink), var(--violet)); filter:blur(14px); opacity:.45;}
+.hero-media img{position:relative; z-index:1; width:100%; height:100%; object-fit:cover;}
+@media (hover:hover){ .hero-media img:hover{transform:scale(1.015); transition:.4s ease;} }
+
+section{margin:48px 0 0}
+.section-head{display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:16px}
+.h2{font-family:Michroma,sans-serif; text-transform:uppercase; letter-spacing:.06em; font-size:clamp(20px,2.8vw,28px);
+  background:linear-gradient(90deg, var(--lav), var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.card{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.10);
+  border-radius:var(--radius); box-shadow:var(--shadow);}
+
+/* Gigs */
+.gigs{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
+.gig{grid-column:span 6; padding:14px 16px; display:flex; align-items:center; gap:12px}
+.gig .date{min-width:72px; text-align:center; line-height:1.05; padding:10px 8px; border-radius:12px;
+  background:linear-gradient(180deg, rgba(255,42,163,.2), rgba(179,0,255,.15)); border:1px solid rgba(255,255,255,.13); font-weight:800;}
+.gig .meta{flex:1}
+.gig .meta .when{font-weight:800}
+.gig .meta .where{color:var(--muted)}
+.badge{font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:6px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.18)}
+.badge.public{background:rgba(0,229,255,.12); color:#bff7ff}
+.badge.private{background:rgba(255,42,163,.14); color:#ffd6eb}
+.badge.residency{background:rgba(200,107,255,.14); color:#ecd4ff}
+@media (max-width:880px){.gig{grid-column:span 12}}
+
+/* Calendar */
+.cal-wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:18px}
+@media (max-width:980px){.cal-wrap{grid-template-columns:1fr}}
+.calendar{padding:14px}
+.cal-top{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:6px 4px 12px}
+.cal-top .nav{display:flex; gap:8px}
+.cal-top button{border:1px solid rgba(255,255,255,.2); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  color:var(--ink); padding:8px 10px; border-radius:10px; cursor:pointer; transition:.2s;}
+.cal-top button:hover{background:rgba(255,255,255,.09)}
+.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:8px}
+.dow,.day{text-align:center; padding:8px 0; border-radius:10px; font-weight:700}
+.dow{color:var(--muted); text-transform:uppercase; font-size:12px; letter-spacing:.08em}
+.day{position:relative; aspect-ratio:1/1; display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03); cursor:pointer}
+.day.muted{opacity:.35}
+.day.today{outline:2px solid var(--cyan)}
+.day.unavailable{background:rgba(255,77,109,.10); border-color:rgba(255,77,109,.25)}
+.day.booked-public{background:rgba(0,229,255,.10); border-color:rgba(0,229,255,.25)}
+.day.booked-private{background:rgba(255,42,163,.10); border-color:rgba(255,42,163,.25)}
+.legend{display:flex; flex-wrap:wrap; gap:10px; padding:8px 4px 0; color:var(--muted); font-size:13px}
+.legend .swatch{width:14px; height:14px; border-radius:4px; display:inline-block}
+.swatch.pub{background:rgba(0,229,255,.6)} .swatch.priv{background:rgba(255,42,163,.6)} .swatch.unav{background:rgba(255,77,109,.6)}
+
+/* Form */
+form{display:grid; gap:10px}
+label span{display:block; font-weight:800; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+input,select,textarea{width:100%; padding:12px 12px; color:var(--ink); background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.16); border-radius:12px; outline:none}
+input[type="date"],input[type="time"]{appearance:none;-webkit-appearance:none;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;color:var(--ink);font-family:inherit;font-size:16px;padding:12px;width:100%}
+input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.7}
+select option{color:#000 !important;background:#fff !important}
+select:focus option{color:#000 !important;background:#fff !important}
+select{color:var(--ink)}
+textarea{min-height:120px; resize:vertical}
+.row{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+@media (max-width:640px){.row{grid-template-columns:1fr}}
+.note{color:var(--muted); font-size:13px}
+
+.embed{position:relative; overflow:hidden; border-radius:var(--radius); border:1px solid rgba(255,255,255,.1)}
+.embed iframe{width:100%; height:180px; border:0; display:block}
+
+/* GALLERY + LIGHTBOX */
+#gallery{position:relative; padding-bottom:28px; overflow-anchor:auto}
+#gallery .section-head{margin-bottom:12px}
+.gallery{display:grid; grid-template-columns:repeat(12,1fr); gap:12px}
+.gallery .ph{grid-column:span 4; height:180px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.10); border-radius:14px; overflow:hidden; position:relative; cursor:pointer}
+.gallery .ph img{width:100%; height:100%; object-fit:cover; display:block; object-position:50% 35%; transition:transform .25s ease, box-shadow .25s ease; will-change:transform; transform:translateZ(0)}
+@media (hover:hover){ .gallery .ph:hover img{transform:scale(1.03)} }
+.gallery .ph:focus-within img{outline:2px solid rgba(255,255,255,.3)}
+@media (max-width:920px){.gallery .ph{grid-column:span 6}}
+@media (max-width:520px){.gallery .ph{grid-column:span 12}}
+.lb-overlay{will-change:opacity,transform}
+.lb-overlay{position:absolute; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.55); z-index:50; backdrop-filter:blur(2px); border-radius:0}
+.lb-overlay.open{display:flex}
+.lb-img-wrap{width:min(720px,92%); max-height:420px; padding:12px; background:#0b0a12; border:1px solid rgba(255,255,255,.25); border-radius:12px; box-shadow:0 16px 48px rgba(0,0,0,.6); position:relative}
+.lb-img-wrap img{display:block; width:100%; height:100%; object-fit:contain; border-radius:8px; max-height:360px}
+.lb-close,.lb-prev,.lb-next{position:absolute; background:rgba(0,0,0,.6); border:1px solid rgba(255,255,255,.25); color:#fff; padding:8px 10px; border-radius:10px; cursor:pointer; user-select:none}
+.lb-close{top:8px; right:8px}
+  .lb-close {
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+.lb-prev{top:50%; left:-44px; transform:translateY(-50%)}
+.lb-next{top:50%; right:-44px; transform:translateY(-50%)}
+@media (max-width:720px){
+  .lb-prev{left:-8px} .lb-next{right:-8px}
+  .lb-img-wrap{width:96%; max-height:360px}
+  .lb-img-wrap img{max-height:300px}
+  .lb-prev,.lb-next{display:none}
+  .lb-close{top:6px; right:6px; padding:6px 8px}
+}
+
+footer{margin:52px 0 0; opacity:.85}
+
+/* Mobile polish */
+@media (max-width:720px){
+  .container{padding:20px 14px 44px}
+  .hero{margin:14px 0 20px; padding:20px 14px 28px}
+  .hero-grid{grid-template-columns:1fr; gap:18px}
+  .title{font-size:clamp(28px,8vw,40px); letter-spacing:.01em}
+  .subtitle{font-size:14px; line-height:1.55}
+  .hero-media{min-height:220px}
+  .hero::before{display:none !important}
+  .cta-row{gap:10px}
+  .btn{padding:12px 14px; font-weight:800}
+  .embed iframe{height:160px}
+  .gallery{gap:10px}
+  .gallery .ph{height:140px}
+  .lb-img-wrap{width:96%; max-height:320px; padding:10px}
+  .lb-img-wrap img{max-height:270px}
+  .cal-grid{gap:6px}
+  .day{font-size:14px; border-radius:10px}
+  form{gap:12px}
+}
+@media (max-width:380px){
+  .title{font-size:clamp(24px,9.5vw,34px)}
+  .subtitle{font-size:13px}
+  .hero-media{min-height:200px}
+  .gallery .ph{height:128px}
+}
+
+.cal-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+.gallery{grid-template-columns:repeat(12,minmax(0,1fr))}
+@media (min-width:721px){
+  .lb-prev{left:8px; transform:translateY(-50%)}
+  .lb-next{right:8px; transform:translateY(-50%)}
+}
+
+/* Small phones */
+@media (max-width:430px){
+  .container{padding-inline:12px}
+  .section-head{flex-direction:column; align-items:flex-start; gap:8px}
+  .legend{display:grid; grid-template-columns:1fr 1fr; gap:6px 10px; font-size:12px; max-width:100%}
+  .legend .swatch{width:12px; height:12px}
+  .calendar{padding:10px}
+  .cal-top{padding:4px 2px 8px}
+  .cal-grid{gap:6px}
+  .day{font-size:14px; border-radius:10px}
+  #booking{padding:12px !important}
+  form{gap:12px}
+  .row{grid-template-columns:1fr !important}
+  input,select,textarea{width:100%; min-width:0; box-sizing:border-box}
+  input[type="date"],input[type="time"]{-webkit-appearance:none; width:100%}
+  .hero-media{min-height:240px}
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- HERO -->
+    <header class="hero card">
+      <div class="hero-grid">
+        <div>
+          <span class="tag">Oakland • Bay Area</span>
+          <h1 class="title">DJ SHIVA</h1>
+          <p class="subtitle">Neon-slick, high-energy club sets. Dark grooves, bright edges. Available for clubs, festivals, brand events, and private parties.</p>
+          <div class="cta-row">
+            <!-- CLICK FIX: give each CTA an id and data-target. Keep markup/visuals the same. -->
+            <a id="btnBook" class="btn"        data-target="#booking"   role="button" aria-label="Request a Date">Request a Date</a>
+            <a id="btnAvail" class="btn ghost" data-target="#calendar"  role="button" aria-label="See Availability">See Availability</a>
+            <a id="btnSets" class="btn ghost"  data-target="#sets"      role="button" aria-label="Upcoming Sets">Upcoming Sets</a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <img id="heroImg" src="" alt="DJ Shiva — featured" />
+        </div>
+      </div>
+    </header>
+
+    <!-- MIXES -->
+    <section id="mixes">
+      <div class="section-head">
+        <h2 class="h2">Featured Mix</h2>
+        <a class="btn ghost" href="#" id="mixesLink">All Mixes</a>
+      </div>
+      <div class="embed card">
+        <iframe title="Featured Mix" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/1345323806&auto_play=false"></iframe>
+      </div>
+    </section>
+
+    <!-- UPCOMING SETS -->
+    <section id="sets">
+      <div class="section-head">
+        <h2 class="h2">Upcoming Sets</h2>
+        <div class="legend">
+          <span><i class="swatch pub"></i> Public</span>
+          <span><i class="swatch priv"></i> Private</span>
+        </div>
+      </div>
+      <div id="gigs" class="gigs"></div>
+    </section>
+
+    <!-- AVAILABILITY + BOOKING -->
+    <section id="calendar">
+      <div class="section-head">
+        <h2 class="h2">Availability</h2>
+        <div class="legend">
+          <span><i class="swatch pub"></i> Booked (Public)</span>
+          <span><i class="swatch priv"></i> Booked (Private)</span>
+          <span><i class="swatch unav"></i> Unavailable</span>
+        </div>
+      </div>
+
+      <div class="cal-wrap">
+        <div class="calendar card">
+          <div class="cal-top">
+            <button id="prevMonth" aria-label="Previous Month">‹</button>
+            <div><strong id="calLabel"></strong><div class="note" id="calSub"></div></div>
+            <button id="nextMonth" aria-label="Next Month">›</button>
+          </div>
+          <div class="cal-grid" id="calHead"></div>
+          <div class="cal-grid" id="calBody" aria-live="polite"></div>
+          <div class="note" style="padding:10px 4px 8px">Tip: tap a date to prefill the booking request.</div>
+        </div>
+
+        <div id="booking" class="card" style="padding:16px;">
+          <div class="section-head" style="margin:0 0 8px;">
+            <h2 class="h2">Booking Request</h2>
+            <span class="note">No auto-booking. You’ll get a confirmation by email.</span>
+          </div>
+
+          <form id="bookingForm" data-endpoint="https://formspree.io/f/your_form_id">
+            <div class="row">
+              <label><span>Full Name</span><input name="name" placeholder="Your name" required /></label>
+              <label><span>Email</span><input type="email" name="email" placeholder="you@email.com" required /></label>
+            </div>
+            <div class="row">
+              <label><span>Event Date</span><input type="date" name="date" id="dateInput" required /></label>
+              <label><span>Start Time</span><input type="time" name="time" required /></label>
+            </div>
+            <div class="row">
+              <label><span>Location / Venue</span><input name="location" placeholder="Venue + city" required /></label>
+              <label>
+                <span>Estimated Budget</span>
+                <select name="budget" required>
+                  <option value="">Select</option><option>$500–$1,000</option><option>$1,000–$2,000</option>
+                  <option>$2,000–$4,000</option><option>$4,000+</option>
+                </select>
+              </label>
+            </div>
+            <div class="row">
+              <label>
+                <span>Event Type</span>
+                <select name="eventType" required>
+                  <option value="">Select</option><option>Club / Night</option><option>Festival / Stage</option>
+                  <option>Corporate / Brand</option><option>Private Party</option><option>Other</option>
+                </select>
+              </label>
+              <label>
+                <span>Expected Attendance</span>
+                <select name="attendance" required>
+                  <option value="">Select</option><option>Under 100</option><option>100–300</option>
+                  <option>300–700</option><option>700+</option>
+                </select>
+              </label>
+            </div>
+            <label><span>Notes</span><textarea name="notes" placeholder="Vibe, hours, gear on site, etc."></textarea></label>
+            <button class="btn" type="submit">Send Request</button>
+            <div id="formMsg" class="note"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+      <div class="section-head">
+        <h2 class="h2">Gallery</h2>
+      </div>
+
+      <div id="lightbox" class="lb-overlay" aria-hidden="true">
+        <div class="lb-img-wrap">
+          <img id="lbImg" src="" alt="DJ Shiva photo (full view)">
+          <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+          <button class="lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+          <button class="lb-next" id="lbNext" aria-label="Next">›</button>
+        </div>
+      </div>
+
+      <div class="gallery" id="galleryGrid"></div>
+    </section>
+
+    <footer>
+      © <span id="yr"></span> DJ SHIVA • Oakland / San Francisco Bay Area • Management / Bookings:
+      <a href="mailto:booking@shivadj.com">booking@shivadj.com</a>
+    </footer>
+  </div>
+
+<script>
+(function(){
+  /* Image + data */
+  var HERO_IMAGE_URL = "https://static.wixstatic.com/media/45bcd7_664daba981474f209dc9c3ce0b24ee65~mv2.webp";
+  var galleryImages = [
+    "https://static.wixstatic.com/media/45bcd7_726c217e47414e858a1aad5c9f75a364~mv2.webp",
+    "https://static.wixstatic.com/media/45bcd7_e61bcfff89404a0495849cf54b7c90d0~mv2.webp",
+    "https://static.wixstatic.com/media/45bcd7_0daba7f6666d4822a8111b4dbf63a988~mv2.webp",
+    "https://static.wixstatic.com/media/45bcd7_0598326c534f47698c3beb8d0f7e473a~mv2.webp",
+    "https://static.wixstatic.com/media/45bcd7_5ed6ba2e8fb44c94b70c5c2b9604deb3~mv2.webp",
+    "https://static.wixstatic.com/media/45bcd7_2f633711594e45e6bbcec64834d98ac6~mv2.webp",
+    "https://static.wixstatic.com/media/45bcd7_3bffe3f738794de8a20fbf5a47dcce46~mv2.webp"
+  ];
+  var faceY = { 1:'10%', 6:'10%' };
+
+  document.getElementById('mixesLink').href = "#";
+
+  /* Hero image */
+  var hero = document.getElementById('heroImg');
+  if (HERO_IMAGE_URL) { hero.src = HERO_IMAGE_URL; }
+
+  /* CLICK FIX: wire CTAs to JS scroll (works inside Wix iframe & iOS) */
+  function goTo(sel){
+    var el = document.querySelector(sel);
+    if(!el) return;
+    try{ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+    catch(_){ el.scrollIntoView(true); }
+  }
+  ['btnBook','btnAvail','btnSets'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      var t = el.getAttribute('data-target');
+      if(t) goTo(t);
+    }, {passive:false});
+  });
+
+  /* Gallery render */
+  var grid = document.getElementById('galleryGrid');
+  function drawGallery(){
+    grid.innerHTML = "";
+    if(!galleryImages.length){
+      for(var i=0;i<6;i++){ grid.insertAdjacentHTML("beforeend", '<div class="ph card"></div>'); }
+      return;
+    }
+    galleryImages.forEach(function(url, idx){
+      var y = faceY[idx] || '35%';
+      var html = ''
+        + '<div class="ph card" data-idx="'+idx+'">'
+        + '  <a href="'+url+'" aria-label="Open photo '+(idx+1)+'">'
+        + '    <img src="'+url+'" alt="DJ Shiva gallery photo '+(idx+1)+'" style="object-position:50% '+y+'">'
+        + '  </a>'
+        + '</div>';
+      grid.insertAdjacentHTML("beforeend", html);
+    });
+  }
+  drawGallery();
+
+  /* Lightbox */
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbClose = document.getElementById('lbClose');
+  var lbPrev = document.getElementById('lbPrev');
+  var lbNext = document.getElementById('lbNext');
+  var lbIndex = 0;
+
+  function openLB(i, srcFromThumb){
+    lbIndex = i;
+    lbImg.src = srcFromThumb || galleryImages[lbIndex];
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+  }
+  function closeLB(){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); lbImg.src = ""; }
+  function prevLB(){ lbIndex = (lbIndex - 1 + galleryImages.length) % galleryImages.length; lbImg.src = galleryImages[lbIndex]; }
+  function nextLB(){ lbIndex = (lbIndex + 1) % galleryImages.length; lbImg.src = galleryImages[lbIndex]; }
+
+  grid.addEventListener('click', function(e){
+    var imgEl = e.target.closest('.ph img'); if(!imgEl) return;
+    e.preventDefault();
+    var tile = imgEl.closest('.ph');
+    var i = Number((tile && tile.dataset.idx) || 0);
+    openLB(i, imgEl.currentSrc || imgEl.src);
+  });
+  lbClose.addEventListener('click', closeLB);
+  lbPrev.addEventListener('click', prevLB);
+  lbNext.addEventListener('click', nextLB);
+  lb.addEventListener('click', function(e){ if(e.target === lb) closeLB(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLB();
+    if(e.key === 'ArrowLeft') prevLB();
+    if(e.key === 'ArrowRight') nextLB();
+  });
+
+  /* Gigs */
+  var upcomingSets = [
+    { date:"2025-11-14", when:"Fri • 11:30 PM", venue:"Temple Nightclub", city:"San Francisco, CA", type:"public" },
+    { date:"2025-11-21", when:"Fri • 10:00 PM", venue:"Berkeley Social Club", city:"Berkeley, CA", type:"public" },
+    { date:"2025-11-22", when:"Sat • 8:00 PM", venue:"Private Event", city:"Oakland, CA", type:"private" },
+    { date:"2025-12-05", when:"Fri • 11:00 PM", venue:"Public Works", city:"San Francisco, CA", type:"public" }
+  ];
+  var gigsEl = document.getElementById('gigs');
+  function fmtDateISOToPretty(iso){
+    var d = new Date(iso + "T00:00:00");
+    return { mo:d.toLocaleString(undefined,{month:"short"}), day:d.getDate() };
+  }
+  function badge(type){
+    if(type==="public") return '<span class="badge public">Public</span>';
+    if(type==="private") return '<span class="badge private">Private</span>';
+    if(type==="residency") return '<span class="badge residency">Residency</span>';
+    return '';
+  }
+  function drawGigs(){
+    gigsEl.innerHTML = "";
+    if(!upcomingSets.length){
+      gigsEl.innerHTML = '<div class="card gig" style="grid-column: span 12;"><div class="meta"><div class="where">No sets announced yet. Check back soon.</div></div></div>';
+      return;
+    }
+    upcomingSets.slice().sort(function(a,b){ return a.date.localeCompare(b.date); }).forEach(function(g){
+      var d = fmtDateISOToPretty(g.date);
+      var where = g.type==="private" ? "Private Event" : g.venue;
+      var html = ''
+        + '<div class="card gig">'
+        + '  <div class="date">'+d.mo+'<br>'+d.day+'</div>'
+        + '  <div class="meta"><div class="when">'+g.when+'</div><div class="where">'+where+' • '+g.city+'</div></div>'
+        +    badge(g.type)
+        + '</div>';
+      gigsEl.insertAdjacentHTML("beforeend", html);
+    });
+  }
+  drawGigs();
+
+  /* Calendar */
+  var calHead = document.getElementById('calHead');
+  var calBody = document.getElementById('calBody');
+  var calLabel = document.getElementById('calLabel');
+  var calSub = document.getElementById('calSub');
+  var prevBtn = document.getElementById('prevMonth');
+  var nextBtn = document.getElementById('nextMonth');
+  var dateInput = document.getElementById('dateInput');
+  var dows = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  calHead.innerHTML = dows.map(function(d){return '<div class="dow">'+d+'</div>';}).join("");
+  var view = new Date(); view.setDate(1);
+  function pad2(n){return n<10? "0"+n : ""+n}
+  function toISO(d){ return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()) }
+
+  var bookedPublic = new Set(["2025-11-14","2025-11-21","2025-12-05"]);
+  var bookedPrivate = new Set(["2025-11-22"]);
+  var unavailable   = new Set(["2025-11-27"]);
+  var recurring = [{ label:"First Thursdays Residency", match:function(d){return d.getDay()===4 && d.getDate()<=7;}, markAs:"public" }];
+
+  function markClassForDate(d){
+    var iso = toISO(d);
+    var recType = null; for(var i=0;i<recurring.length;i++){ if(recurring[i].match(d)) { recType = recurring[i].markAs; break; } }
+    if(unavailable.has(iso)) return "unavailable";
+    if(bookedPrivate.has(iso)) return "booked-private";
+    if(bookedPublic.has(iso)) return "booked-public";
+    if(recType==="public") return "booked-public";
+    if(recType==="private") return "booked-private";
+    return "";
+  }
+
+  function renderCalendar(){
+    var year = view.getFullYear(); var month = view.getMonth(); var todayISO = toISO(new Date());
+    calLabel.textContent = view.toLocaleString(undefined, {month:"long", year:"numeric"});
+    calSub.textContent = "Tap a date to request";
+    calBody.innerHTML = "";
+    var firstDow = new Date(year, month, 1).getDay();
+    var prevDays = firstDow; var daysInMonth = new Date(year, month+1, 0).getDate();
+    var prevMonthLastDay = new Date(year, month, 0).getDate();
+    for(var i = prevDays; i>0; i--){
+      var d = new Date(year, month-1, prevMonthLastDay - i + 1);
+      calBody.insertAdjacentHTML("beforeend", '<div class="day muted" aria-disabled="true">'+d.getDate()+'</div>');
+    }
+    for(var day=1; day<=daysInMonth; day++){
+      var d2 = new Date(year, month, day); var iso = toISO(d2); var classes = ["day"]; var mark = markClassForDate(d2);
+      if(mark) classes.push(mark); if(iso===todayISO) classes.push("today");
+      calBody.insertAdjacentHTML("beforeend",
+        '<button class="'+classes.join(' ')+'" data-iso="'+iso+'" aria-label="'+dows[d2.getDay()]+' '+d2.toLocaleString(undefined,{month:"short"})+' '+day+'">'+day+'</button>');
+    }
+    var cells = calBody.querySelectorAll(".day, .day.muted").length;
+    var remainder = cells % 7; if(remainder){ var add = 7 - remainder; for(var j=1;j<=add;j++){ var d3 = new Date(year, month+1, j); calBody.insertAdjacentHTML("beforeend", '<div class="day muted" aria-disabled="true">'+d3.getDate()+'</div>'); } }
+  }
+  renderCalendar();
+  prevBtn.addEventListener("click", function(){ view.setMonth(view.getMonth()-1); renderCalendar(); });
+  nextBtn.addEventListener("click", function(){ view.setMonth(view.getMonth()+1); renderCalendar(); });
+  calBody.addEventListener("click", function(e){
+    var btn = e.target.closest(".day"); if(!btn || btn.classList.contains("muted")) return;
+    if(btn.classList.contains("unavailable")){ alert("That date is marked unavailable."); return; }
+    dateInput.value = btn.dataset.iso;
+    goTo('#booking');
+  });
+
+  /* Booking form */
+  var form = document.getElementById('bookingForm'); var msg = document.getElementById('formMsg');
+  form.addEventListener('submit', function(e){
+    e.preventDefault(); msg.textContent = "Sending your request…";
+    var fd = new FormData(form); var data = {}; fd.forEach(function(v,k){ data[k]=v; });
+    var summary = "[Booking Request] " + data.name + " • " + data.eventType + " • " + data.date + " " + data.time + " • " + data.location + " • Budget: " + data.budget + " • " + data.attendance;
+    var endpoint = form.getAttribute('data-endpoint');
+    if(!endpoint || endpoint.indexOf("your_form_id")>-1){ msg.style.color = "var(--danger)"; msg.textContent = "Form endpoint missing. Set form[data-endpoint]."; return; }
+    fetch(endpoint, { method:"POST", headers:{ "Accept":"application/json","Content-Type":"application/json"}, body: JSON.stringify(Object.assign({}, data, {summary:summary})) })
+      .then(function(res){ if(!res.ok) throw new Error("fail"); msg.style.color="var(--ok)"; msg.textContent="Thanks! Your request was sent. You'll get a reply by email."; form.reset(); })
+      .catch(function(){ msg.style.color="var(--danger)"; msg.textContent="Could not send. Please verify the form endpoint or try again later."; });
+  });
+
+  /* Footer year */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
