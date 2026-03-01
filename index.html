@@ -7,7 +7,7 @@
 <meta name="description" content="DJ Shiva (Tiffany) — Oakland & San Francisco Bay Area club DJ. Neon-driven sets, bass-forward sound. Bookings open." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;800&family=Sacramento&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -69,7 +69,32 @@ a{color:var(--cyan); text-decoration:none}
   box-shadow:0 6px 24px rgba(255,42,163,.45);}
 .title{font-family:Michroma,sans-serif; font-size:clamp(38px,5.4vw,72px); line-height:1.02; letter-spacing:.02em; margin:12px 0 10px;
   background:linear-gradient(90deg, var(--pink), var(--lav), var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent;
-  text-shadow:0 0 28px rgba(255,42,163,.22);}
+ .title{ position:relative; display:inline-block; }
+
+/* Signature overlay */
+.title .sig{
+  position:absolute;
+  right:-6px;
+  bottom:-10px;
+  font-family:"Sacramento", cursive;
+  font-size:clamp(28px, 4.4vw, 56px);
+  font-weight:400;
+  letter-spacing:.02em;
+  transform:rotate(-6deg);
+
+  /* neon ink that fits your palette */
+  color:rgba(245,243,248,.95);
+  text-shadow:
+    0 0 10px rgba(0,229,255,.25),
+    0 0 18px rgba(255,42,163,.22),
+    0 0 26px rgba(179,0,255,.18);
+
+  /* subtle “paint” look so it doesn’t feel flat */
+  -webkit-text-stroke: 1px rgba(0,0,0,.45);
+
+  pointer-events:none;
+}
+       text-shadow:0 0 28px rgba(255,42,163,.22);}
 .subtitle{color:var(--muted); font-size:clamp(15px,2.2vw,18px); line-height:1.6; max-width:56ch; margin-bottom:22px}
 
 /* CLICK FIX: raise buttons and make sure nothing intercepts taps */
@@ -274,7 +299,10 @@ footer{margin:52px 0 0; opacity:.85}
       <div class="hero-grid">
         <div>
           <span class="tag">Oakland • Bay Area</span>
-          <h1 class="title">DJ SHIVA</h1>
+          <h1 class="title">
+  DJ SHIVA
+  <span class="sig">Tiffany</span>
+</h1>
           <p class="subtitle">Neon-slick, high-energy club sets. Dark grooves, bright edges. Available for clubs, festivals, brand events, and private parties.</p>
           <div class="cta-row">
             <!-- CLICK FIX: give each CTA an id and data-target. Keep markup/visuals the same. -->
