@@ -7,7 +7,7 @@
 <meta name="description" content="DJ Shiva (Tiffany) — Oakland & San Francisco Bay Area club DJ. Neon-driven sets, bass-forward sound. Bookings open." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;800&family=Sacramento&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -67,40 +67,44 @@ a{color:var(--cyan); text-decoration:none}
 .tag{display:inline-flex; align-items:center; gap:8px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
   color:#0b0b12; background:linear-gradient(90deg, var(--pink), var(--violet)); padding:8px 12px; border-radius:999px;
   box-shadow:0 6px 24px rgba(255,42,163,.45);}
-.title{font-family:Michroma,sans-serif; font-size:clamp(38px,5.4vw,72px); line-height:1.02; letter-spacing:.02em; margin:12px 0 10px;
-  background:linear-gradient(90deg, var(--pink), var(--lav), var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent;
- .title{ position:relative; display:inline-block; }
+.title{
+  position:relative;
+  display:inline-block;
+
+  font-family:Michroma,sans-serif;
+  font-size:clamp(38px,5.4vw,72px);
+  line-height:1.02;
+  letter-spacing:.02em;
+  margin:12px 0 10px;
+
+  background:linear-gradient(90deg, var(--pink), var(--lav), var(--violet));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+
+  text-shadow:0 0 28px rgba(255,42,163,.22);
+}
 
 /* Signature overlay */
 .title .sig{
   position:absolute;
-  right:-6px;
-  bottom:-10px;
-  font-family:"Sacramento", cursive;
-  font-size:clamp(28px, 4.4vw, 56px);
-  font-weight:400;
-  letter-spacing:.02em;
-  transform:rotate(-6deg);
+  right:-18px;
+  bottom:6px;
 
-  /* neon ink that fits your palette */
+  font-family:"Great Vibes", cursive;
+  font-size:clamp(34px, 5vw, 64px);
+  font-weight:400;
+  transform:rotate(-8deg);
+
   color:rgba(245,243,248,.95);
   text-shadow:
-    0 0 10px rgba(0,229,255,.25),
-    0 0 18px rgba(255,42,163,.22),
-    0 0 26px rgba(179,0,255,.18);
+    0 0 8px rgba(0,229,255,.25),
+    0 0 16px rgba(255,42,163,.22),
+    0 0 24px rgba(179,0,255,.18);
 
-  /* subtle “paint” look so it doesn’t feel flat */
-  -webkit-text-stroke: 1px rgba(0,0,0,.45);
-
+  -webkit-text-stroke: 0.5px rgba(0,0,0,.35);
   pointer-events:none;
-}
-       text-shadow:0 0 28px rgba(255,42,163,.22);}
-.subtitle{color:var(--muted); font-size:clamp(15px,2.2vw,18px); line-height:1.6; max-width:56ch; margin-bottom:22px}
-
-/* CLICK FIX: raise buttons and make sure nothing intercepts taps */
-.cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; position:relative; z-index:10}
-.cta-row a{position:relative; z-index:11; pointer-events:auto; touch-action:manipulation; cursor:pointer}
-.hero *{pointer-events:auto} /* belt-and-suspenders for iOS hit-testing */
+}/* belt-and-suspenders for iOS hit-testing */
 
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 18px; border-radius:14px;
   border:1px solid rgba(255,255,255,.16); font-weight:800; color:var(--ink); transition:.25s ease;
@@ -291,6 +295,32 @@ footer{margin:52px 0 0; opacity:.85}
   .hero-media{min-height:240px}
 }
 </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "DJ Shiva Tiffany",
+  "description": "High-energy Bay Area DJ based in Oakland, CA. Available for corporate events, brand activations, private parties, festivals, and club performances across the San Francisco Bay Area.",
+  "areaServed": [
+    "Oakland, CA",
+    "San Francisco, CA",
+    "San Jose, CA",
+    "Berkeley, CA",
+    "Fremont, CA",
+    "Walnut Creek, CA",
+    "San Francisco Bay Area"
+  ],
+  "serviceType": [
+    "DJ",
+    "Event DJ",
+    "Club DJ",
+    "Corporate Event DJ",
+    "Private Party DJ"
+  ],
+  "url": "https://talonbuccola-cloud.github.io/djshiva/",
+  "email": "booking@shivadj.com"
+}
+</script>
 </head>
 <body>
   <div class="container">
@@ -316,7 +346,12 @@ footer{margin:52px 0 0; opacity:.85}
         </div>
       </div>
     </header>
-
+    <section class="card" style="padding:24px;">
+     <h2 class="h2">Bay Area DJ Based in Oakland, California</h2>
+     <p>
+       DJ Shiva Tiffany is a professional open-format DJ serving Oakland, San Francisco, San Jose, Berkeley, Fremont, Walnut Creek, and the greater San Francisco Bay Area. She performs at corporate events, brand activations, private parties, festivals, and nightlife venues across Northern California.
+    </p>
+</section>
     <!-- MIXES -->
     <section id="mixes">
       <div class="section-head">
