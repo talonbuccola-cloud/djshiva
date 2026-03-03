@@ -90,21 +90,20 @@ a{color:var(--cyan); text-decoration:none}
   position:absolute;
   z-index:3;
 
-  /* placement: sits over the letters like your Canva example */
-  right: clamp(20px, 6vw, 80px);
-  bottom: clamp(-6px, -0.8vw, 6px);
+  /* position tuned to match Canva reference */
+  right: 60px;
+  bottom: -8px;
 
-  /* sizing */
-  width: clamp(220px, 34vw, 380px);
+  width: clamp(260px, 36vw, 420px);
   height:auto;
 
-  /* slight tilt like a real signature */
   transform: rotate(-6deg);
 
   pointer-events:none;
-  filter: drop-shadow(0 0 10px rgba(0,229,255,.18))
-          drop-shadow(0 0 18px rgba(255,42,163,.18))
-          drop-shadow(0 0 26px rgba(179,0,255,.14));
+
+  filter:
+    drop-shadow(0 0 12px rgba(0,229,255,.18))
+    drop-shadow(0 0 18px rgba(255,42,163,.18));
 }/* belt-and-suspenders for iOS hit-testing */
 
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 18px; border-radius:14px;
