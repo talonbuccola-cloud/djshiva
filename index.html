@@ -88,12 +88,23 @@ a{color:var(--cyan); text-decoration:none}
 /* Signature overlay */
 .title .sig{
   position:absolute;
- right:-8px;
- bottom:-24px;
+  z-index:3;
+
+  /* placement: sits over the letters like your Canva example */
+  right: clamp(20px, 6vw, 80px);
+  bottom: clamp(-6px, -0.8vw, 6px);
+
+  /* sizing */
+  width: clamp(220px, 34vw, 380px);
+  height:auto;
+
+  /* slight tilt like a real signature */
+  transform: rotate(-6deg);
 
   pointer-events:none;
-  width: clamp(180px, 28vw, 320px);
-  height: auto;
+  filter: drop-shadow(0 0 10px rgba(0,229,255,.18))
+          drop-shadow(0 0 18px rgba(255,42,163,.18))
+          drop-shadow(0 0 26px rgba(179,0,255,.14));
 }/* belt-and-suspenders for iOS hit-testing */
 
 .btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 18px; border-radius:14px;
@@ -319,9 +330,9 @@ footer{margin:52px 0 0; opacity:.85}
       <div class="hero-grid">
         <div>
           <span class="tag">Oakland • Bay Area</span>
-          <h1 class="title">
+         <h1 class="title">
   DJ SHIVA
-  <span class="sig">Tiff<img class="sig" src="assets/img/tiffany-signature.png" alt="Tiffany signature" />any</span>
+  <img class="sig" src="assets/img/tiffany-signature.png" alt="Tiffany signature" />
 </h1>
           <p class="subtitle">Neon-slick, high-energy club sets. Dark grooves, bright edges. Available for clubs, festivals, brand events, and private parties.</p>
           <div class="cta-row">
