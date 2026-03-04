@@ -206,22 +206,30 @@ textarea{min-height:120px; resize:vertical}
 @media (max-width:640px){.row{grid-template-columns:1fr}}
 .note{color:var(--muted); font-size:13px}
 
-.embed{position:relative; overflow:hidden; border-radius:var(--radius); border:1px solid rgba(255,255,255,.1)}
-.embed iframe{width:100%; height:180px; border:0; display:block}
- /* SoundCloud fix — only affects the SoundCloud iframe */
-.sc-embed{
+.embed{
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.embed iframe{
   width:100%;
-  max-width:100%;
   border:0;
   display:block;
 }
 
-/* Mobile height fix for SoundCloud */
+/* desktop */
+.sc-embed{
+  height:180px;
+}
+
+/* mobile */
 @media (max-width:720px){
-  .sc-embed{ height: 520px; }
-} 
-@media (max-width:720px){
-  .embed iframe{ height: 200px; }
+  .sc-embed{
+    height:200px;
+  }
+}
 }
 /* GALLERY + LIGHTBOX */
 #gallery{position:relative; padding-bottom:28px; overflow-anchor:auto}
@@ -275,7 +283,6 @@ footer{margin:52px 0 0; opacity:.85}
   .hero::before{display:none !important}
   .cta-row{gap:10px}
   .btn{padding:12px 14px; font-weight:800}
-  .embed iframe{height:160px}
   .gallery{gap:10px}
   .gallery .ph{height:140px}
   .lb-img-wrap{width:96%; max-height:320px; padding:10px}
@@ -379,18 +386,18 @@ footer{margin:52px 0 0; opacity:.85}
         <h2 class="h2">Featured Mix</h2>
         <a class="btn ghost" href="https://soundcloud.com/shivatiffany" target="_blank" rel="noopener" id="mixesLink">All Mixes</a>
       </div>
-      <div class="embed card">
-      <iframe 
-  class="sc-embed"      
-  title="DJ Shiva Tiffany on SoundCloud"
-  width="100%" 
-  height="166"
-  scrolling="no" 
-  frameborder="no" 
-  allow="autoplay"
-  src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fshivatiffany&color=%23ff2aa3&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
-</iframe>
-      </div>
+    <div class="embed card">
+  <iframe
+    class="sc-embed"
+    title="DJ Shiva Tiffany on SoundCloud"
+    width="100%"
+    height="166"
+    scrolling="no"
+    frameborder="no"
+    allow="autoplay; encrypted-media"
+    src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fshivatiffany&color=%23ff2aa3&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=false">
+  </iframe>
+</div>
     </section>
 
     <!-- UPCOMING SETS -->
@@ -519,6 +526,24 @@ footer{margin:52px 0 0; opacity:.85}
   /* Hero image */
   var hero = document.getElementById('heroImg');
   if (HERO_IMAGE_URL) { hero.src = HERO_IMAGE_URL; }
+    // SoundCloud mobile nudge (forces iframe to re-render on iOS)
+  (function(){
+    var sc = document.querySelector('iframe.sc-embed');
+    if(!sc) return;
+
+    function kick(){
+      var src = sc.getAttribute('src');
+      if(!src) return;
+      sc.setAttribute('src', src); // re-set same src to force redraw
+    }
+
+    // only do this on small screens
+    if (window.matchMedia && window.matchMedia('(max-width: 720px)').matches){
+      // wait for layout + iOS iframe paint
+      setTimeout(kick, 350);
+      setTimeout(kick, 1200);
+    }
+  })();
 
   /* CLICK FIX: wire CTAs to JS scroll (works inside Wix iframe & iOS) */
   function goTo(sel){
