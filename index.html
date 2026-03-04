@@ -249,6 +249,13 @@ footer{margin:52px 0 0; opacity:.85}
   .hero{margin:14px 0 20px; padding:20px 14px 28px}
   .hero-grid{grid-template-columns:1fr; gap:18px}
   .title{font-size:clamp(28px,8vw,40px); letter-spacing:.01em}
+    /* Mobile-only placement for Tiffany signature */
+  .title .sig{
+    right: -60px;                 /* less negative = moves LEFT */
+    bottom: -24px;                /* more negative = moves DOWN */
+    width: clamp(170px, 62vw, 320px);
+    transform: rotate(-6deg);
+  }
   .subtitle{font-size:14px; line-height:1.55}
   .hero-media{min-height:220px}
   .hero::before{display:none !important}
