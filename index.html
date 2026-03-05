@@ -741,19 +741,6 @@ var recurring = [];
     goTo('#booking');
   });
 
-  /* Booking form */
-  var form = document.getElementById('bookingForm'); var msg = document.getElementById('formMsg');
-  form.addEventListener('submit', function(e){
-    e.preventDefault(); msg.textContent = "Sending your request…";
-    var fd = new FormData(form); var data = {}; fd.forEach(function(v,k){ data[k]=v; });
-    var summary = "[Booking Request] " + data.name + " • " + data.eventType + " • " + data.date + " " + data.time + " • " + data.location + " • Budget: " + data.budget + " • " + data.attendance;
-    var endpoint = form.getAttribute('data-endpoint');
-    if(!endpoint || endpoint.indexOf("your_form_id")>-1){ msg.style.color = "var(--danger)"; msg.textContent = "Form endpoint missing. Set form[data-endpoint]."; return; }
-    fetch(endpoint, { method:"POST", headers:{ "Accept":"application/json","Content-Type":"application/json"}, body: JSON.stringify(Object.assign({}, data, {summary:summary})) })
-      .then(function(res){ if(!res.ok) throw new Error("fail"); msg.style.color="var(--ok)"; msg.textContent="Thanks! Your request was sent. You'll get a reply by email."; form.reset(); })
-      .catch(function(){ msg.style.color="var(--danger)"; msg.textContent="Could not send. Please verify the form endpoint or try again later."; });
-  });
-
   /* Footer year */
   document.getElementById('yr').textContent = new Date().getFullYear();
 })();
