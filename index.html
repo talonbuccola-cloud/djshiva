@@ -17,6 +17,8 @@
 <meta name="twitter:image" content="https://djshivatiffany.com/assets/img/hero.webp" />
 <link rel="icon" href="assets/img/hero.webp" type="image/webp" />
 <link rel="apple-touch-icon" href="assets/img/hero.webp" />
+<meta name="theme-color" content="#07060a" />
+<link rel="preload" as="image" href="assets/img/hero.webp" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
@@ -338,9 +340,19 @@ footer{margin:52px 0 0; opacity:.85}
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "EntertainmentBusiness",
   "name": "DJ Shiva Tiffany",
   "description": "High-energy Bay Area DJ based in Oakland, CA. Available for corporate events, brand activations, private parties, festivals, and club performances across the San Francisco Bay Area.",
+  "url": "https://djshivatiffany.com",
+  "email": "booking@shivadj.com",
+  "image": "https://djshivatiffany.com/assets/img/hero.webp",
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Oakland",
+    "addressRegion": "CA",
+    "addressCountry": "US"
+  },
   "areaServed": [
     "Oakland, CA",
     "San Francisco, CA",
@@ -357,8 +369,9 @@ footer{margin:52px 0 0; opacity:.85}
     "Corporate Event DJ",
     "Private Party DJ"
   ],
-  "url": "https://djshivatiffany.com",
-  "email": "booking@shivadj.com"
+  "sameAs": [
+    "https://soundcloud.com/shivatiffany"
+  ]
 }
 </script>
 </head>
@@ -588,7 +601,7 @@ footer{margin:52px 0 0; opacity:.85}
       var html = ''
         + '<div class="ph card" data-idx="'+idx+'">'
         + '  <a href="'+url+'" aria-label="Open photo '+(idx+1)+'">'
-        + '    <img src="'+url+'" alt="DJ Shiva gallery photo '+(idx+1)+'" style="object-position:50% '+y+'">'
+        + '    <img src="'+url+'" alt="DJ Shiva Tiffany performing — Bay Area event photo '+(idx+1)+'" loading="lazy" style="object-position:50% '+y+'">'
         + '  </a>'
         + '</div>';
       grid.insertAdjacentHTML("beforeend", html);
