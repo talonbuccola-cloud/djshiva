@@ -15,8 +15,11 @@
 <meta name="twitter:title" content="DJ Shiva Tiffany &mdash; Oakland / Bay Area DJ" />
 <meta name="twitter:description" content="DJ Shiva (Tiffany) &mdash; Oakland & San Francisco Bay Area club DJ. Neon-driven sets, bass-forward sound. Bookings open." />
 <meta name="twitter:image" content="https://djshivatiffany.com/assets/img/hero.webp" />
-<link rel="icon" href="assets/img/hero.webp" type="image/webp" />
-<link rel="apple-touch-icon" href="assets/img/hero.webp" />
+<link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+<link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+<link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+<link rel="manifest" href="/site.webmanifest" />
 <meta name="theme-color" content="#07060a" />
 <link rel="preload" as="image" href="assets/img/hero.webp" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -367,37 +370,93 @@ footer{margin:52px 0 0; opacity:.85}
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "EntertainmentBusiness",
-  "name": "DJ Shiva Tiffany",
-  "description": "High-energy Bay Area DJ based in Oakland, CA. Available for corporate events, brand activations, private parties, festivals, and club performances across the San Francisco Bay Area.",
-  "url": "https://djshivatiffany.com/",
-  "email": "booking@shivadj.com",
-  "image": "https://djshivatiffany.com/assets/img/hero.webp",
-  "priceRange": "$$$",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Oakland",
-    "addressRegion": "CA",
-    "addressCountry": "US"
-  },
-  "areaServed": [
-    "Oakland, CA",
-    "San Francisco, CA",
-    "San Jose, CA",
-    "Berkeley, CA",
-    "Fremont, CA",
-    "Walnut Creek, CA",
-    "San Francisco Bay Area"
-  ],
-  "serviceType": [
-    "DJ",
-    "Event DJ",
-    "Club DJ",
-    "Corporate Event DJ",
-    "Private Party DJ"
-  ],
-  "sameAs": [
-    "https://soundcloud.com/shivatiffany"
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://djshivatiffany.com/#business",
+      "name": "DJ Shiva Tiffany",
+      "url": "https://djshivatiffany.com/",
+      "image": "https://djshivatiffany.com/assets/img/hero.webp",
+      "email": "booking@shivadj.com",
+      "areaServed": [
+        "Oakland, CA",
+        "San Francisco, CA",
+        "San Jose, CA",
+        "Berkeley, CA",
+        "Fremont, CA",
+        "Walnut Creek, CA",
+        "San Francisco Bay Area"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Oakland",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "sameAs": [
+        "https://soundcloud.com/shivatiffany"
+      ],
+      "serviceType": [
+        "DJ",
+        "Event DJ",
+        "Club DJ",
+        "Corporate Event DJ",
+        "Private Party DJ",
+        "Festival DJ",
+        "Brand Activation DJ"
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "name": "Corporate Event DJ Booking",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Corporate Event DJ"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Private Party DJ Booking",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Private Party DJ"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Club & Nightlife DJ Booking",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Club DJ"
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "Festival DJ Booking",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Festival DJ"
+          }
+        }
+      ],
+      "employee": {
+        "@id": "https://djshivatiffany.com/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://djshivatiffany.com/#person",
+      "name": "DJ Shiva Tiffany",
+      "url": "https://djshivatiffany.com/",
+      "image": "https://djshivatiffany.com/assets/img/hero.webp",
+      "jobTitle": "DJ",
+      "worksFor": {
+        "@id": "https://djshivatiffany.com/#business"
+      },
+      "sameAs": [
+        "https://soundcloud.com/shivatiffany"
+      ]
+    }
   ]
 }
 </script>
