@@ -620,6 +620,10 @@ footer{margin:52px 0 0; opacity:.85}
 (function(){
   /* Image + data */
   var HERO_IMAGE_URL = "assets/img/hero.webp";
+  /* Google Calendar integration */
+  var GOOGLE_CALENDAR_API_KEY = "AIzaSyAF16P5ShTA_2BespQjMdKyuueDbfXRTYc";
+  var GOOGLE_CALENDAR_ID = "djshivatiffany@gmail.com";
+  var GOOGLE_CALENDAR_MAX_RESULTS = 2500;
  var galleryImages = [
   "assets/img/gallery-1.webp",
   "assets/img/gallery-2.webp",
@@ -776,29 +780,134 @@ footer{margin:52px 0 0; opacity:.85}
  var bookedPublic  = new Set();
 var bookedPrivate = new Set();
 var unavailable   = new Set();
-  function loadSchedule(){
-  return fetch("assets/data/schedule.json", { cache: "no-store" })
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      bookedPublic  = new Set((data.bookedPublic  || []).map(String));
-      bookedPrivate = new Set((data.bookedPrivate || []).map(String));
-      unavailable   = new Set((data.unavailable   || []).map(String));
 
-      // Auto-hide past gigs
-      upcomingSets = (data.upcomingSets || []).slice().filter(function(g){
-        var gigDate = new Date(g.date + "T00:00:00");
-        var today = new Date(); today.setHours(0,0,0,0);
-        return gigDate >= today;
+  function classifyEvent(ev){
+    var text = ((ev.summary || "") + " " + (ev.description || "")).toLowerCase();
+    if (/\b(unavailable|blocked|hold|ooo|out of office)\b/.test(text)) return "unavailable";
+    if (ev.visibility === "private" || /\b(private|closed)\b/.test(text)) return "private";
+    return "public";
+  }
+
+  function eventStartDate(ev){
+    if(!ev || !ev.start) return null;
+    if(ev.start.date) return new Date(ev.start.date + "T00:00:00");
+    if(ev.start.dateTime) return new Date(ev.start.dateTime);
+    return null;
+  }
+
+  function eventDateISO(ev){
+    if(ev && ev.start && ev.start.date) return String(ev.start.date);
+    var d = eventStartDate(ev);
+    return d ? toISO(d) : "";
+  }
+
+  function parseLocation(raw){
+    var clean = String(raw || "").trim();
+    if(!clean) return { venue: "TBA Venue", city: "Bay Area" };
+    var parts = clean.split(",").map(function(p){ return p.trim(); }).filter(Boolean);
+    if(!parts.length) return { venue: "TBA Venue", city: "Bay Area" };
+    return {
+      venue: parts[0],
+      city: parts.length > 1 ? parts[parts.length - 1] : "Bay Area"
+    };
+  }
+
+  function formatWhen(ev){
+    if(ev && ev.start && ev.start.date) return "All day";
+    var start = eventStartDate(ev);
+    if(!start) return "Time TBA";
+    var end = (ev && ev.end && ev.end.dateTime) ? new Date(ev.end.dateTime) : null;
+    var startTxt = start.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+    if(!end) return startTxt;
+    var endTxt = end.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+    return startTxt + " - " + endTxt;
+  }
+
+  function loadLocalSchedule(){
+    return fetch("assets/data/schedule.json", { cache: "no-store" })
+      .then(function(r){ return r.json(); });
+  }
+
+  function loadGoogleCalendarSchedule(){
+    if(!GOOGLE_CALENDAR_API_KEY || GOOGLE_CALENDAR_API_KEY === "PASTE_GOOGLE_CALENDAR_API_KEY_HERE"){
+      return Promise.reject(new Error("Google Calendar API key missing"));
+    }
+    var today = new Date(); today.setHours(0,0,0,0);
+    var base = "https://www.googleapis.com/calendar/v3/calendars/" + encodeURIComponent(GOOGLE_CALENDAR_ID) + "/events";
+    var qs = "?key=" + encodeURIComponent(GOOGLE_CALENDAR_API_KEY)
+      + "&singleEvents=true"
+      + "&orderBy=startTime"
+      + "&showDeleted=false"
+      + "&maxResults=" + encodeURIComponent(GOOGLE_CALENDAR_MAX_RESULTS)
+      + "&timeMin=" + encodeURIComponent(today.toISOString());
+    return fetch(base + qs, { cache: "no-store" })
+      .then(function(r){
+        if(!r.ok) throw new Error("Google Calendar fetch failed: " + r.status);
+        return r.json();
+      })
+      .then(function(payload){
+        var mapped = {
+          bookedPublic: [],
+          bookedPrivate: [],
+          unavailable: [],
+          upcomingSets: []
+        };
+        (payload.items || []).forEach(function(ev){
+          if(!ev || ev.status === "cancelled" || !ev.start) return;
+          var iso = eventDateISO(ev);
+          if(!iso) return;
+
+          var mark = classifyEvent(ev);
+          if(mark === "unavailable") mapped.unavailable.push(iso);
+          else if(mark === "private") mapped.bookedPrivate.push(iso);
+          else mapped.bookedPublic.push(iso);
+
+          if(mark === "unavailable") return;
+          var loc = parseLocation(ev.location);
+          mapped.upcomingSets.push({
+            date: iso,
+            when: formatWhen(ev),
+            venue: loc.venue,
+            city: loc.city,
+            type: mark
+          });
+        });
+        mapped.bookedPublic = Array.from(new Set(mapped.bookedPublic));
+        mapped.bookedPrivate = Array.from(new Set(mapped.bookedPrivate));
+        mapped.unavailable = Array.from(new Set(mapped.unavailable));
+        return mapped;
       });
-    })
-    .catch(function(){
-      bookedPublic  = new Set();
-      bookedPrivate = new Set();
-      unavailable   = new Set();
-      upcomingSets  = [];
-      return; // IMPORTANT: resolve so the page can render
+  }
+
+  function applyScheduleData(data){
+    bookedPublic  = new Set((data.bookedPublic  || []).map(String));
+    bookedPrivate = new Set((data.bookedPrivate || []).map(String));
+    unavailable   = new Set((data.unavailable   || []).map(String));
+
+    // Auto-hide past gigs
+    upcomingSets = (data.upcomingSets || []).slice().filter(function(g){
+      var gigDate = new Date(g.date + "T00:00:00");
+      var today = new Date(); today.setHours(0,0,0,0);
+      return gigDate >= today;
     });
-}
+  }
+
+  function loadSchedule(){
+    return loadGoogleCalendarSchedule()
+      .catch(function(){
+        return loadLocalSchedule();
+      })
+      .then(function(data){
+        applyScheduleData(data || {});
+      })
+      .catch(function(){
+        bookedPublic  = new Set();
+        bookedPrivate = new Set();
+        unavailable   = new Set();
+        upcomingSets  = [];
+        return; // IMPORTANT: resolve so the page can render
+      });
+  }
 var recurring = [];
 
   function markClassForDate(d){
