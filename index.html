@@ -750,9 +750,9 @@ footer{margin:52px 0 0; opacity:.85}
       gigsEl.innerHTML = '<div class="card gig" style="grid-column: span 12;"><div class="meta"><div class="where">No sets announced yet. Check back soon.</div></div></div>';
       return;
     }
-    upcomingSets.slice().sort(function(a,b){ return a.date.localeCompare(b.date); }).forEach(function(g){
+    upcomingSets.slice().sort(function(a,b){ return a.date.localeCompare(b.date); }).slice(0,4).forEach(function(g){
       var d = fmtDateISOToPretty(g.date);
-      var where = g.type==="private" ? "Private Event" : g.venue;
+      var where = g.venue || "TBA Venue";
       var html = ''
         + '<div class="card gig">'
         + '  <div class="date">'+d.mo+'<br>'+d.day+'</div>'
@@ -803,15 +803,28 @@ var unavailable   = new Set();
 
   function parseLocation(raw){
     var clean = String(raw || "").trim();
-    if(!clean) return { venue: "TBA Venue", city: "Bay Area" };
+    if(!clean) return { city: "Bay Area" };
     var parts = clean.split(",").map(function(p){ return p.trim(); }).filter(Boolean);
-    if(!parts.length) return { venue: "TBA Venue", city: "Bay Area" };
-    return {
-      venue: parts[0],
-      city: parts.length > 1 ? parts[parts.length - 1] : "Bay Area"
-    };
-  }
+    if(!parts.length) return { city: "Bay Area" };
 
+    var generic = {
+      "usa": true,
+      "united states": true,
+      "us": true,
+      "ca": true,
+      "california": true
+    };
+
+    for(var i=parts.length-1; i>=0; i--){
+      var cand = parts[i];
+      var low = cand.toLowerCase();
+      if(generic[low]) continue;
+      if(/^\d{5}(-\d{4})?$/.test(low)) continue;
+      return { city: cand };
+    }
+
+    return { city: "Bay Area" };
+  }
   function formatWhen(ev){
     if(ev && ev.start && ev.start.date) return "All day";
     var start = eventStartDate(ev);
@@ -861,14 +874,14 @@ var unavailable   = new Set();
           if(mark === "unavailable") mapped.unavailable.push(iso);
           else if(mark === "private") mapped.bookedPrivate.push(iso);
           else mapped.bookedPublic.push(iso);
-
           if(mark === "unavailable") return;
           var loc = parseLocation(ev.location);
+          var title = String(ev.summary || "").trim() || "TBA Venue";
           mapped.upcomingSets.push({
             date: iso,
             when: formatWhen(ev),
-            venue: loc.venue,
-            city: loc.city,
+            venue: title,
+            city: loc.city || "Bay Area",
             type: mark
           });
         });
