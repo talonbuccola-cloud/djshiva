@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About DJ Shiva Tiffany</title>
+<meta name="description" content="Learn more about DJ Shiva Tiffany, a San Francisco Bay Area DJ with more than two decades behind the decks." />
+<link rel="canonical" href="https://djshivatiffany.com/about.html" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://djshivatiffany.com/about.html" />
+<meta property="og:title" content="About DJ Shiva Tiffany" />
+<meta property="og:description" content="More than two decades behind the decks, rooted in house and elevated by funk, soul, and bass-heavy edge." />
+<meta property="og:image" content="https://djshivatiffany.com/assets/img/hero.webp" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="About DJ Shiva Tiffany" />
+<meta name="twitter:description" content="More than two decades behind the decks, rooted in house and elevated by funk, soul, and bass-heavy edge." />
+<meta name="twitter:image" content="https://djshivatiffany.com/assets/img/hero.webp" />
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<meta name="theme-color" content="#07060a" />
+<link rel="preload" as="image" href="assets/img/gallery-8.jpeg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07060a; --bg-2:#0b0a12; --ink:#f5f3f8; --muted:#b9b0c9;
+  --pink:#ff2aa3; --magenta:#ff0088; --violet:#b300ff; --lav:#c86bff; --cyan:#00e5ff; --card:#121022;
+  --radius:18px; --shadow:0 18px 60px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box}
+html,body{
+  min-height:100%; max-width:100%;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1100px 520px at 15% -10%, rgba(255,0,136,.20), transparent 60%),
+    radial-gradient(1000px 620px at 110% 10%, rgba(179,0,255,.18), transparent 60%),
+    linear-gradient(180deg, var(--bg), var(--bg-2));
+}
+a{color:var(--cyan); text-decoration:none}
+.container{max-width:1120px; margin:0 auto; padding:28px 20px 64px}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 18px; border-radius:14px;
+  border:1px solid rgba(255,255,255,.16); font-weight:800; color:var(--ink); transition:.25s ease;
+  background:linear-gradient(90deg, rgba(255,42,163,.85), rgba(179,0,255,.85)); box-shadow:0 10px 34px rgba(255,42,163,.32);}
+.btn:hover{transform:translateY(-2px); box-shadow:0 16px 44px rgba(179,0,255,.36)}
+.btn.ghost{background:transparent; border-color:rgba(255,255,255,.18); box-shadow:none}
+.card{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.10);
+  border-radius:var(--radius); box-shadow:var(--shadow);}
+.page-hero{
+  position:relative; margin:24px 0 32px; padding:28px 20px 34px; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+  isolation:isolate;
+}
+.page-hero::before,
+.page-hero::after{content:""; position:absolute; inset:0; pointer-events:none; z-index:0;}
+.page-hero::before{
+  inset:-10%;
+  background:conic-gradient(from 180deg at 50% 50%, var(--violet), var(--pink), var(--magenta), var(--violet));
+  filter:blur(80px) saturate(140%); opacity:.10; animation:sweep 12s linear infinite;
+}
+.page-hero::after{
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px) 0 0/28px 28px,
+    linear-gradient(0deg,  rgba(255,255,255,.06) 1px, transparent 1px) 0 0/28px 28px;
+  -webkit-mask-image:radial-gradient(circle at 30% -20%, rgba(0,0,0,.55), transparent 65%);
+          mask-image:radial-gradient(circle at 30% -20%, rgba(0,0,0,.55), transparent 65%);
+  opacity:.12;
+}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.hero-top,
+.about-grid,
+.facts-grid,
+.image-grid{position:relative; z-index:1}
+.hero-top{display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:24px}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; font-size:12px;
+  color:#0b0b12; background:linear-gradient(90deg, var(--pink), var(--violet)); padding:8px 12px; border-radius:999px;
+  box-shadow:0 6px 24px rgba(255,42,163,.45);}
+.title{font-family:Michroma,sans-serif; font-size:clamp(30px,5vw,58px); line-height:1.04; letter-spacing:.02em; margin:14px 0 12px;
+  background:linear-gradient(90deg, var(--pink), var(--lav), var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 28px rgba(255,42,163,.22);}
+.lede{max-width:760px; color:var(--muted); line-height:1.78; font-size:17px; margin:0}
+.h2{font-family:Michroma,sans-serif; text-transform:uppercase; letter-spacing:.06em; font-size:clamp(20px,2.8vw,28px);
+  background:linear-gradient(90deg, var(--lav), var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; margin:0 0 16px}
+.about-grid{display:grid; grid-template-columns:1.15fr .85fr; gap:24px; margin-top:28px}
+.bio-card{padding:22px}
+.bio-card p{margin:0; color:var(--muted); line-height:1.82}
+.facts-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:28px}
+.fact{padding:16px 18px}
+.fact .kicker{display:block; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:8px}
+.fact strong{display:block; font-size:16px; line-height:1.5}
+.image-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin-top:36px}
+.neon-frame{
+  position:relative; border-radius:var(--radius); overflow:hidden; min-height:380px; isolation:isolate;
+  box-shadow:var(--shadow), 0 0 0 6px rgba(255,42,163,.10), 0 26px 80px 10px rgba(255,42,163,.35), 0 52px 140px 18px rgba(179,0,255,.28);
+}
+.neon-frame::before{content:""; position:absolute; inset:-2px; border-radius:inherit; z-index:0;
+  background:linear-gradient(90deg, var(--pink), var(--violet)); filter:blur(14px); opacity:.45;}
+.neon-frame img{position:relative; z-index:1; width:100%; height:100%; display:block; object-fit:cover}
+.image-caption{margin-top:12px; color:var(--muted); line-height:1.65}
+footer{margin:52px 0 0; opacity:.85}
+@media (max-width:920px){
+  .about-grid{grid-template-columns:1fr}
+  .image-grid{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .container{padding:20px 14px 44px}
+  .page-hero{margin:14px 0 24px; padding:22px 16px 28px}
+  .hero-top{flex-direction:column; align-items:flex-start}
+  .facts-grid{grid-template-columns:1fr}
+  .lede{font-size:15px}
+  .neon-frame{min-height:320px}
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SV4LFTPY03"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-SV4LFTPY03');
+</script>
+</head>
+<body>
+  <div class="container">
+    <header class="page-hero card">
+      <div class="hero-top">
+        <span class="eyebrow">About</span>
+        <a class="btn ghost" href="index.html">Back Home</a>
+      </div>
+
+      <h1 class="title">DJ Shiva Tiffany</h1>
+      <p class="lede">With more than two decades behind the decks, DJ Shiva Tiffany has built a sound rooted in house music and elevated by funk, soul, and bass-heavy edge. Based in the San Francisco Bay Area, she has brought that sound to clubs, festivals, and underground events from San Francisco to New York, Miami, and Las Vegas. Her sets are smooth, magnetic, and built to move a room, blending deep groove with high-energy precision.</p>
+
+      <div class="about-grid">
+        <div class="bio-card card">
+          <h2 class="h2">Performance Profile</h2>
+          <p>Home base: San Francisco Bay Area<br><br>
+          Regions performed in: San Francisco, New York, Los Angeles, Miami, Las Vegas, Arizona<br><br>
+          Primary genres: House and its subgenres<br><br>
+          Additional genres: Breaks, trip hop, trap<br><br>
+          Style description: A little bit of funk, a little bit of soul, and a lot of bass.<br><br>
+          Event types: Clubs, festivals, underground events<br><br>
+          Typical set length: 1-2 hours<br><br>
+          Minimum set length: 1 hour<br><br>
+          Preferred equipment: CDJ-3000s or Pioneer controllers with plug-and-play<br><br>
+          Travel: Available to travel anywhere if travel is paid</p>
+        </div>
+
+        <div class="bio-card card">
+          <h2 class="h2">Highlights</h2>
+          <p>Past appearances: Cielo in New York, The Artisan in Las Vegas, Winter Music Conference in Miami, and venues throughout San Francisco.<br><br>
+          Artists performed with: Kevin Knapp and Nile.<br><br>
+          Every set is shaped to the room first, with house at the center and enough funk, soul, and low-end pressure to keep the energy locked in.</p>
+        </div>
+      </div>
+
+      <div class="facts-grid">
+        <div class="fact card">
+          <span class="kicker">Home Base</span>
+          <strong>San Francisco Bay Area</strong>
+        </div>
+        <div class="fact card">
+          <span class="kicker">Event Types</span>
+          <strong>Clubs, festivals, and underground events</strong>
+        </div>
+        <div class="fact card">
+          <span class="kicker">Primary Sound</span>
+          <strong>House and its subgenres, with breaks, trip hop, and trap in rotation</strong>
+        </div>
+        <div class="fact card">
+          <span class="kicker">Set Specs</span>
+          <strong>Usually 1-2 hours, with a 1 hour minimum and travel available when covered</strong>
+        </div>
+      </div>
+
+      <div class="image-grid">
+        <div>
+          <div class="neon-frame">
+            <img src="assets/img/gallery-8.jpeg" alt="DJ Shiva Tiffany portrait with neon styling">
+          </div>
+          <p class="image-caption">A polished, high-energy presence with the same neon-forward visual language that anchors the homepage hero.</p>
+        </div>
+        <div>
+          <div class="neon-frame">
+            <img src="assets/img/gallery-9.jpeg" alt="DJ Shiva Tiffany performance portrait">
+          </div>
+          <p class="image-caption">Built for clubs, festivals, and underground rooms, with deep groove, magnetic pacing, and bass-forward momentum.</p>
+        </div>
+      </div>
+    </header>
+
+    <footer>
+      &copy; <span id="yr"></span> DJ Shiva Tiffany &bull; Oakland &amp; San Francisco Bay Area DJ &bull; <a href="index.html">Return to homepage</a>
+    </footer>
+  </div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
