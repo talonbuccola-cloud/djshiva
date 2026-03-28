@@ -324,7 +324,13 @@ footer{margin:52px 0 0; opacity:.85}
   .container{padding:20px 14px 44px}
   .hero{margin:14px 0 20px; padding:20px 14px 28px}
   .hero-grid{grid-template-columns:1fr; gap:18px}
-  .hero-copy{min-height:auto}
+  .hero-copy{min-height:auto; display:contents}
+  .tag{order:1}
+  .title{order:2}
+  .subtitle{order:3}
+  .hero-media{order:4; min-height:220px}
+  .cta-row{order:5}
+  .hero-bio{order:6}
   .title{font-size:clamp(28px,8vw,40px); letter-spacing:.01em}
     /* Mobile-only placement for Tiffany signature */
   .title .sig{
@@ -334,7 +340,6 @@ footer{margin:52px 0 0; opacity:.85}
   transform: rotate(-2deg);
 }
   .subtitle{font-size:14px; line-height:1.55}
-  .hero-media{min-height:220px}
   .hero::before{display:none !important}
   .cta-row{gap:10px}
   .btn{padding:12px 14px; font-weight:800}
