@@ -156,6 +156,52 @@ section{margin:48px 0 0}
   background:linear-gradient(90deg, var(--lav), var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent;}
 .card{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.10);
   border-radius:var(--radius); box-shadow:var(--shadow);}
+.press-card{
+  display:grid;
+  grid-template-columns:minmax(190px, 240px) minmax(0, 1fr);
+  gap:24px;
+  padding:22px;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.press-card::before{
+  content:"";
+  position:absolute;
+  inset:auto -12% -30% 34%;
+  height:220px;
+  background:radial-gradient(circle, rgba(255,42,163,.18), transparent 65%);
+  pointer-events:none;
+}
+.press-cover{
+  position:relative;
+  z-index:1;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 14px 42px rgba(0,0,0,.34), 0 0 0 1px rgba(255,42,163,.10), 0 0 34px rgba(179,0,255,.18);
+  background:rgba(255,255,255,.03);
+}
+.press-cover img{display:block; width:100%; height:auto;}
+.press-copy{position:relative; z-index:1}
+.press-kicker{
+  display:inline-block;
+  margin:0 0 10px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.10em;
+  text-transform:uppercase;
+}
+.press-copy p{
+  margin:0 0 14px;
+  color:var(--muted);
+  line-height:1.75;
+}
+@media (max-width:760px){
+  .press-card{grid-template-columns:1fr; gap:18px; padding:18px}
+  .press-cover{max-width:280px}
+}
 
 /* Gigs */
 .gigs{display:grid; grid-template-columns:repeat(12,1fr); gap:16px}
@@ -516,6 +562,22 @@ gtag('config', 'G-SV4LFTPY03');
        DJ Shiva Tiffany is a professional open-format DJ serving Oakland, San Francisco, San Jose, Berkeley, Fremont, Walnut Creek, and the greater San Francisco Bay Area. She performs at corporate events, brand activations, private parties, festivals, and nightlife venues across Northern California.
     </p>
 </section>
+    <section id="featured-in">
+      <div class="section-head">
+        <h2 class="h2">Featured In</h2>
+      </div>
+      <div class="card press-card">
+        <div class="press-cover">
+          <img src="assets/img/in-their-own-words-jesse-saunders-cover.jpg" alt="In Their Own Words book cover by Jesse Saunders" loading="lazy" />
+        </div>
+        <div class="press-copy">
+          <span class="press-kicker">Music History / Press Feature</span>
+          <p>DJ Shiva Tiffany is one of the contributors featured in Jesse Saunders&rsquo; book <em>In Their Own Words</em>, a firsthand collection of stories from DJs, artists, and innovators who helped shape Disco, House Music, and Electronic Dance Music culture.</p>
+          <p>The book captures personal experiences and perspectives from people who lived the movement from the inside, preserving an important part of dance music history.</p>
+          <a class="btn" href="https://www.amazon.com/dp/B088QGL8W6" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </div>
+    </section>
     <!-- MIXES -->
     <section id="mixes">
       <div class="section-head">
