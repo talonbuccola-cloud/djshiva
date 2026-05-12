@@ -773,12 +773,15 @@ gtag('config', 'G-SV4LFTPY03');
     if(e.key === 'ArrowRight') nextLB();
   });
 
-  /* Gigs */
+ /* Gigs */
  var upcomingSets = [];
   var gigsEl = document.getElementById('gigs');
+  var DEFAULT_EVENT_TIME_ZONE = "America/Los_Angeles";
   function fmtDateISOToPretty(iso){
-    var d = new Date(iso + "T00:00:00");
-    return { mo:d.toLocaleString(undefined,{month:"short"}), day:d.getDate() };
+    var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var parts = String(iso || "").split("-");
+    var monthIndex = Number(parts[1] || 1) - 1;
+    return { mo:months[monthIndex] || "", day:Number(parts[2] || 0) || "" };
   }
   function badge(type){
     if(type==="public") return '<span class="badge public">Public</span>';
@@ -792,7 +795,7 @@ gtag('config', 'G-SV4LFTPY03');
       gigsEl.innerHTML = '<div class="card gig" style="grid-column: span 12;"><div class="meta"><div class="where">No sets announced yet. Check back soon.</div></div></div>';
       return;
     }
-    upcomingSets.slice().sort(function(a,b){ return a.date.localeCompare(b.date); }).slice(0,4).forEach(function(g){
+    upcomingSets.slice().sort(function(a,b){ return (a.sortKey || a.date || "").localeCompare(b.sortKey || b.date || ""); }).slice(0,4).forEach(function(g){
       var d = fmtDateISOToPretty(g.date);
       var where = g.venue || "TBA Venue";
       var html = ''
@@ -837,8 +840,35 @@ var unavailable   = new Set();
     return null;
   }
 
+  function getEventTimeZone(ev){
+    return (ev && ev.start && ev.start.timeZone) || (ev && ev.end && ev.end.timeZone) || DEFAULT_EVENT_TIME_ZONE;
+  }
+
+  function formatDateInTimeZone(dateInput, timeZone, options){
+    var d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+    if(!(d instanceof Date) || isNaN(d.getTime())) return "";
+    return new Intl.DateTimeFormat("en-US", Object.assign({ timeZone: timeZone }, options || {})).format(d);
+  }
+
+  function eventStartSortKey(ev){
+    if(!ev || !ev.start) return "";
+    if(ev.start.date) return String(ev.start.date) + "T00:00:00";
+    if(ev.start.dateTime) return new Date(ev.start.dateTime).toISOString();
+    return "";
+  }
+
   function eventDateISO(ev){
     if(ev && ev.start && ev.start.date) return String(ev.start.date);
+    if(ev && ev.start && ev.start.dateTime){
+      var tz = getEventTimeZone(ev);
+      var formatted = formatDateInTimeZone(ev.start.dateTime, tz, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+      var parts = formatted.split("/");
+      if(parts.length === 3) return parts[2] + "-" + parts[0] + "-" + parts[1];
+    }
     var d = eventStartDate(ev);
     return d ? toISO(d) : "";
   }
@@ -869,12 +899,20 @@ var unavailable   = new Set();
   }
   function formatWhen(ev){
     if(ev && ev.start && ev.start.date) return "All day";
-    var start = eventStartDate(ev);
-    if(!start) return "Time TBA";
-    var end = (ev && ev.end && ev.end.dateTime) ? new Date(ev.end.dateTime) : null;
-    var startTxt = start.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
-    if(!end) return startTxt;
-    var endTxt = end.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+    if(!(ev && ev.start && ev.start.dateTime)) return "Time TBA";
+    var timeZone = getEventTimeZone(ev);
+    var startTxt = formatDateInTimeZone(ev.start.dateTime, timeZone, {
+      hour: "numeric",
+      minute: "2-digit"
+    });
+    if(!startTxt) return "Time TBA";
+    if(!(ev && ev.end && ev.end.dateTime)) return startTxt;
+    var endTimeZone = (ev && ev.end && ev.end.timeZone) || timeZone;
+    var endTxt = formatDateInTimeZone(ev.end.dateTime, endTimeZone, {
+      hour: "numeric",
+      minute: "2-digit"
+    });
+    if(!endTxt) return startTxt;
     return startTxt + " - " + endTxt;
   }
 
@@ -921,6 +959,7 @@ var unavailable   = new Set();
           var title = String(ev.summary || "").trim() || "TBA Venue";
           mapped.upcomingSets.push({
             date: iso,
+            sortKey: eventStartSortKey(ev),
             when: formatWhen(ev),
             venue: title,
             city: loc.city || "Bay Area",
@@ -941,9 +980,13 @@ var unavailable   = new Set();
 
     // Auto-hide past gigs
     upcomingSets = (data.upcomingSets || []).slice().filter(function(g){
-      var gigDate = new Date(g.date + "T00:00:00");
-      var today = new Date(); today.setHours(0,0,0,0);
-      return gigDate >= today;
+      var today = formatDateInTimeZone(new Date(), DEFAULT_EVENT_TIME_ZONE, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).split("/");
+      var todayIso = today.length === 3 ? (today[2] + "-" + today[0] + "-" + today[1]) : "";
+      return !todayIso || String(g.date || "") >= todayIso;
     });
   }
 
