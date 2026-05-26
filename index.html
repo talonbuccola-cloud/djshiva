@@ -198,9 +198,49 @@ section{margin:48px 0 0}
   color:var(--muted);
   line-height:1.75;
 }
+.affiliation-card{
+  display:grid;
+  gap:18px;
+  padding:22px;
+  justify-items:start;
+  position:relative;
+  overflow:hidden;
+}
+.affiliation-card::before{
+  content:"";
+  position:absolute;
+  inset:auto auto -30% 10%;
+  width:360px;
+  height:180px;
+  background:radial-gradient(circle, rgba(0,229,255,.14), transparent 70%);
+  pointer-events:none;
+}
+.affiliation-card img{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:420px;
+  height:auto;
+  display:block;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 14px 42px rgba(0,0,0,.34), 0 0 0 1px rgba(0,229,255,.08), 0 0 32px rgba(179,0,255,.16);
+}
+.affiliation-copy{
+  position:relative;
+  z-index:1;
+  max-width:640px;
+}
+.affiliation-copy p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.75;
+}
 @media (max-width:760px){
   .press-card{grid-template-columns:1fr; gap:18px; padding:18px}
   .press-cover{max-width:280px}
+  .affiliation-card{padding:18px}
+  .affiliation-card img{max-width:100%}
 }
 
 /* Gigs */
@@ -575,6 +615,17 @@ gtag('config', 'G-SV4LFTPY03');
           <p>DJ Shiva Tiffany is one of the contributors featured in Jesse Saunders&rsquo; book <em>In Their Own Words</em>, a firsthand collection of stories from DJs, artists, and innovators who helped shape Disco, House Music, and Electronic Dance Music culture.</p>
           <p>The book captures personal experiences and perspectives from people who lived the movement from the inside, preserving an important part of dance music history.</p>
           <a class="btn" href="https://www.amazon.com/dp/B088QGL8W6" target="_blank" rel="noopener">View on Amazon</a>
+        </div>
+      </div>
+    </section>
+    <section id="affiliations">
+      <div class="section-head">
+        <h2 class="h2">Affiliations</h2>
+      </div>
+      <div class="card affiliation-card">
+        <img src="assets/img/open-house-collective.png" alt="Open House Collective logo" loading="lazy" />
+        <div class="affiliation-copy">
+          <p>DJ Shiva Tiffany is a member of Open House Collective, a community rooted in house music culture, connection, and creative exchange.</p>
         </div>
       </div>
     </section>
