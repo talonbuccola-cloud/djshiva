@@ -125,7 +125,9 @@ a{color:var(--cyan); text-decoration:none}
   background:linear-gradient(90deg, rgba(255,42,163,.85), rgba(179,0,255,.85)); box-shadow:0 10px 34px rgba(255,42,163,.32);}
 .btn:hover{transform:translateY(-2px); box-shadow:0 16px 44px rgba(179,0,255,.36)}
 .btn.ghost{background:transparent; border-color:rgba(255,255,255,.18); box-shadow:none}
-.cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px}
+.cta-stack{display:flex; flex-direction:column; align-items:flex-start; gap:12px; margin-top:18px}
+.cta-row{display:flex; flex-wrap:wrap; gap:12px}
+.cta-subrow{display:flex; justify-content:center; width:100%}
 .hero-copy{display:flex; flex-direction:column; min-height:100%}
 .hero-bio{
   margin-top:auto;
@@ -415,7 +417,7 @@ footer{margin:52px 0 0; opacity:.85}
   .title{order:2}
   .subtitle{order:3}
   .hero-media{order:4; min-height:220px}
-  .cta-row{order:5}
+  .cta-stack{order:5; gap:10px}
   .hero-bio{order:6}
   .title{font-size:clamp(28px,8vw,40px); letter-spacing:.01em}
     /* Mobile-only placement for Tiffany signature */
@@ -428,6 +430,7 @@ footer{margin:52px 0 0; opacity:.85}
   .subtitle{font-size:14px; line-height:1.55}
   .hero::before{display:none !important}
   .cta-row{gap:10px}
+  .cta-subrow{justify-content:flex-start}
   .btn{padding:12px 14px; font-weight:800}
   .hero-bio{margin-top:20px; padding:16px 16px}
   .gallery{gap:10px}
@@ -582,12 +585,17 @@ gtag('config', 'G-SV4LFTPY03');
   <img class="sig" src="assets/img/tiffany-signature.png" alt="Tiffany signature" />
 </h1>
           <p class="subtitle">Neon-slick, high-energy club sets. Dark grooves, bright edges. Available for clubs, festivals, brand events, and private parties.</p>
-          <div class="cta-row">
-            <!-- CLICK FIX: give each CTA an id and data-target. Keep markup/visuals the same. -->
-            <a id="btnBook" class="btn"        href="#booking"  data-target="#booking"   role="button" aria-label="Request a Date">Request a Date</a>
-            <a id="btnAvail" class="btn ghost" href="#calendar" data-target="#calendar"  role="button" aria-label="See Availability">See Availability</a>
-            <a id="btnSets" class="btn ghost"  href="#sets"     data-target="#sets"      role="button" aria-label="Upcoming Sets">Upcoming Sets</a>
-            <a class="btn ghost" href="about.html" aria-label="About DJ Shiva Tiffany">About</a>
+          <div class="cta-stack">
+            <div class="cta-row">
+              <!-- CLICK FIX: give each CTA an id and data-target. Keep markup/visuals the same. -->
+              <a id="btnBook" class="btn"        href="#booking"  data-target="#booking"   role="button" aria-label="Request a Date">Request a Date</a>
+              <a id="btnAvail" class="btn ghost" href="#calendar" data-target="#calendar"  role="button" aria-label="See Availability">See Availability</a>
+              <a id="btnSets" class="btn ghost"  href="#sets"     data-target="#sets"      role="button" aria-label="Upcoming Sets">Upcoming Sets</a>
+              <a class="btn ghost" href="about.html" aria-label="About DJ Shiva Tiffany">About</a>
+            </div>
+            <div class="cta-subrow">
+              <a class="btn ghost" href="/venue-info" aria-label="Venue and Event Information">Venue &amp; Event Info</a>
+            </div>
           </div>
           <p class="hero-bio">DJ Shiva Tiffany is a San Francisco Bay Area DJ with more than 23 years behind the decks, known for house-driven sets layered with funk, soul, and bass. From clubs and festivals to underground events, she brings polished energy and deep groove to every set.</p>
         </div>
@@ -734,7 +742,17 @@ gtag('config', 'G-SV4LFTPY03');
                 </select>
               </label>
             </div>
-            <label><span>Notes</span><textarea name="notes" placeholder="Vibe, hours, gear on site, etc."></textarea></label>
+            <label>
+              <span>Sound &amp; DJ Setup</span>
+              <select name="soundSetup" required>
+                <option value="">Select</option>
+                <option>Venue provides the complete sound system and DJ table</option>
+                <option>Venue provides some equipment</option>
+                <option>Sound-equipment rental may be needed</option>
+                <option>I&rsquo;m not sure</option>
+              </select>
+            </label>
+            <label><span>Additional Event Details</span><textarea name="notes" placeholder="Tell us anything else we should know, including available sound equipment or venue requirements."></textarea></label>
             <button class="btn" type="submit">Send Request</button>
             <div class="note" style="margin-top:14px; text-align:left;">
               <p style="margin:0 0 10px;">Submitting this form does not guarantee booking. Availability and pricing will be confirmed by email.</p>
