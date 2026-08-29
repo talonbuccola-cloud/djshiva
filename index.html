@@ -258,6 +258,24 @@ section{margin:48px 0 0}
 .badge.private{background:rgba(255,42,163,.14); color:#ffd6eb}
 .badge.residency{background:rgba(200,107,255,.14); color:#ecd4ff}
 @media (max-width:880px){.gig{grid-column:span 12}}
+.featured-gig{grid-column:span 12; display:grid; grid-template-columns:minmax(0,1fr) minmax(220px,340px); align-items:stretch; gap:18px; padding:18px}
+.featured-event-info{display:flex; align-items:center; gap:12px; min-width:0; padding:4px}
+.featured-event-info .meta{min-width:0}
+.featured-event-info .where{margin-top:4px}
+.featured-event-info .venue-detail{margin-top:6px; color:var(--ink); font-size:14px; font-weight:600}
+.featured-event-info .location-detail{margin-top:2px; color:var(--muted); font-size:14px}
+.featured-event-info .badge{margin-left:auto; align-self:flex-start}
+.featured-flyer{margin:0; overflow:hidden; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:#050509; box-shadow:0 0 0 1px rgba(255,42,163,.10), 0 0 28px rgba(179,0,255,.16)}
+.featured-flyer a{display:block}
+.featured-flyer img{display:block; width:100%; height:auto; aspect-ratio:4 / 5; object-fit:contain}
+.featured-details{margin-top:14px}
+.featured-details:focus-visible,.featured-flyer a:focus-visible{outline:3px solid var(--cyan); outline-offset:4px}
+.sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+@media (max-width:700px){
+  .featured-gig{grid-template-columns:1fr; gap:16px}
+  .featured-event-info{align-items:flex-start}
+  .featured-event-info .badge{margin-left:0; align-self:center}
+}
 
 /* Calendar */
 .cal-wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:18px}
@@ -797,6 +815,23 @@ gtag('config', 'G-SV4LFTPY03');
   var GOOGLE_CALENDAR_API_KEY = "AIzaSyAF16P5ShTA_2BespQjMdKyuueDbfXRTYc";
   var GOOGLE_CALENDAR_ID = "djshivatiffany@gmail.com";
   var GOOGLE_CALENDAR_MAX_RESULTS = 2500;
+  /* Add future event promotions here. The standard card remains in use after expiration. */
+  var FEATURED_EVENT_CONFIGS = [{
+    name: "Oasis Music Festival",
+    date: "2026-09-04",
+    startTime: "7:00 PM",
+    endTime: "10:00 PM",
+    venue: "St. Mary's College of California",
+    location: "DLS Lawn, Moraga, California",
+    city: "Moraga",
+    type: "public",
+    flyer: "assets/img/oasis-music-festival-social-main.jpg",
+    flyerWidth: 1080,
+    flyerHeight: 1350,
+    featured: true,
+    featuredDisplayExpiresAt: "2026-09-05T00:00:00-07:00",
+    detailsUrl: "https://oasis-music-fest-smc.go-gaels.chatgpt.site/preview"
+  }];
  var galleryImages = [
   "assets/img/gallery-1.webp",
   "assets/img/gallery-2.webp",
@@ -920,6 +955,32 @@ gtag('config', 'G-SV4LFTPY03');
     if(type==="residency") return '<span class="badge residency">Residency</span>';
     return '';
   }
+  function escapeHtml(value){
+    return String(value || "").replace(/[&<>'"]/g, function(character){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", "'":"&#39;", '"':"&quot;" }[character];
+    });
+  }
+  function isFeaturedEventActive(g, now){
+    if(!g || !g.featured || !g.flyer || !g.featuredDisplayExpiresAt) return false;
+    var expiration = new Date(g.featuredDisplayExpiresAt).getTime();
+    return !isNaN(expiration) && (typeof now === "number" ? now : Date.now()) < expiration;
+  }
+  function featuredGigMarkup(g, d){
+    var details = g.detailsUrl
+      ? '<a class="btn featured-details" href="'+escapeHtml(g.detailsUrl)+'" target="_blank" rel="noopener noreferrer" aria-label="Festival Details for '+escapeHtml(g.venue || "this event")+' (opens in a new tab)">Festival Details<span class="sr-only"> (opens in a new tab)</span></a>'
+      : '';
+    var flyer = '<img src="'+escapeHtml(g.flyer)+'" alt="'+escapeHtml(g.flyerAlt)+'" width="'+escapeHtml(g.flyerWidth)+'" height="'+escapeHtml(g.flyerHeight)+'" loading="lazy">';
+    if(g.detailsUrl) flyer = '<a href="'+escapeHtml(g.detailsUrl)+'" target="_blank" rel="noopener noreferrer" aria-label="Festival Details for '+escapeHtml(g.venue || "this event")+' (opens in a new tab)">'+flyer+'</a>';
+    return ''
+      + '<div class="card gig featured-gig">'
+      + '  <div class="featured-event-info">'
+      + '    <div class="date">'+escapeHtml(d.mo)+'<br>'+escapeHtml(d.day)+'</div>'
+      + '    <div class="meta"><div class="when">'+escapeHtml(g.when)+'</div><div class="where">'+escapeHtml(g.venue || "TBA Venue")+'</div><div class="venue-detail">'+escapeHtml(g.eventVenue || "")+'</div><div class="location-detail">'+escapeHtml(g.fullLocation || g.city || "Bay Area")+'</div>'+details+'</div>'
+      +      badge(g.type)
+      + '  </div>'
+      + '  <figure class="featured-flyer">'+flyer+'</figure>'
+      + '</div>';
+  }
   function drawGigs(){
     gigsEl.innerHTML = "";
     if(!upcomingSets.length){
@@ -928,11 +989,12 @@ gtag('config', 'G-SV4LFTPY03');
     }
     upcomingSets.slice().sort(function(a,b){ return (a.sortKey || a.date || "").localeCompare(b.sortKey || b.date || ""); }).slice(0,4).forEach(function(g){
       var d = fmtDateISOToPretty(g.date);
-      var where = g.venue || "TBA Venue";
-      var html = ''
+      var html;
+      if(isFeaturedEventActive(g)) html = featuredGigMarkup(g, d);
+      else html = ''
         + '<div class="card gig">'
-        + '  <div class="date">'+d.mo+'<br>'+d.day+'</div>'
-        + '  <div class="meta"><div class="when">'+g.when+'</div><div class="where">'+where+' &bull; '+g.city+'</div></div>'
+        + '  <div class="date">'+escapeHtml(d.mo)+'<br>'+escapeHtml(d.day)+'</div>'
+        + '  <div class="meta"><div class="when">'+escapeHtml(g.when)+'</div><div class="where">'+escapeHtml(g.venue || "TBA Venue")+' &bull; '+escapeHtml(g.city || "Bay Area")+'</div></div>'
         +    badge(g.type)
         + '</div>';
       gigsEl.insertAdjacentHTML("beforeend", html);
@@ -1047,6 +1109,44 @@ var unavailable   = new Set();
     return startTxt + " - " + endTxt;
   }
 
+  function configuredEventToGig(config){
+    return {
+      date: config.date,
+      sortKey: config.date + "T19:00:00-07:00",
+      when: config.startTime + "\u2013" + config.endTime,
+      venue: config.name,
+      eventVenue: config.venue,
+      fullLocation: config.location,
+      city: config.city || "Bay Area",
+      type: config.type || "public",
+      flyer: config.flyer,
+      flyerAlt: "Oasis Music Festival at St. Mary's College of California, September 4, 2026.",
+      flyerWidth: config.flyerWidth,
+      flyerHeight: config.flyerHeight,
+      featured: config.featured === true,
+      featuredDisplayExpiresAt: config.featuredDisplayExpiresAt,
+      detailsUrl: config.detailsUrl || ""
+    };
+  }
+
+  function mergeFeaturedEventConfigs(data){
+    data = data || {};
+    data.upcomingSets = data.upcomingSets || [];
+    data.bookedPublic = data.bookedPublic || [];
+    data.bookedPrivate = data.bookedPrivate || [];
+    FEATURED_EVENT_CONFIGS.forEach(function(config){
+      var configuredGig = configuredEventToGig(config);
+      var matchingIndex = data.upcomingSets.findIndex(function(g){
+        return g.date === config.date && String(g.venue || "").trim().toLowerCase() === config.name.toLowerCase();
+      });
+      if(matchingIndex === -1) data.upcomingSets.push(configuredGig);
+      else data.upcomingSets[matchingIndex] = Object.assign({}, data.upcomingSets[matchingIndex], configuredGig);
+      if(config.type === "private") data.bookedPrivate.push(config.date);
+      else data.bookedPublic.push(config.date);
+    });
+    return data;
+  }
+
   function loadLocalSchedule(){
     return fetch("assets/data/schedule.json", { cache: "no-store" })
       .then(function(r){ return r.json(); });
@@ -1127,7 +1227,7 @@ var unavailable   = new Set();
         return loadLocalSchedule();
       })
       .then(function(data){
-        applyScheduleData(data || {});
+        applyScheduleData(mergeFeaturedEventConfigs(data || {}));
       })
       .catch(function(){
         bookedPublic  = new Set();
