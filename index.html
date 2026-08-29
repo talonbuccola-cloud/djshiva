@@ -352,10 +352,10 @@ textarea{min-height:120px; resize:vertical}
   display:block;
 }
 
-/* Featured Mix: SoundCloud visual player */
-.featured-mix-player{width:100%; max-width:100%}
-.sc-embed{height:450px; max-width:100%}
-@media (max-width:720px){.sc-embed{height:330px}}
+/* Featured Mix: compact SoundCloud player */
+.featured-mix-player{width:100%; max-width:600px}
+.soundcloud-player{display:block; width:100%; max-width:600px; height:166px; border:0; border-radius:14px; overflow:hidden}
+@media (max-width:600px){.featured-mix-player,.soundcloud-player{max-width:100%}}
 /* GALLERY + LIGHTBOX */
 #gallery{position:relative; padding-bottom:28px; overflow-anchor:auto}
 #gallery .section-head{margin-bottom:12px}
@@ -627,7 +627,7 @@ gtag('config', 'G-SV4LFTPY03');
         <a class="btn ghost" href="https://soundcloud.com/shivatiffany" target="_blank" rel="noopener" id="mixesLink">All Mixes</a>
       </div>
       <div class="embed card featured-mix-player">
-        <iframe class="sc-embed" title="No Bologna by DJ Shiva Tiffany on SoundCloud" width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fshivatiffany%2Fno-bologna-liquid-night-drive&color=%23ff2bd6&auto_play=false&show_artwork=true&show_user=true&show_playcount=true&visual=true"></iframe>
+        <iframe class="soundcloud-player" title="No Bologna by DJ Shiva Tiffany on SoundCloud" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fshivatiffany%2Fno-bologna-liquid-night-drive&color=%23ff2bd6&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&show_artwork=true&visual=false"></iframe>
       </div>
     </section>
 
@@ -804,7 +804,7 @@ gtag('config', 'G-SV4LFTPY03');
   if (HERO_IMAGE_URL) { hero.src = HERO_IMAGE_URL; }
     // SoundCloud mobile nudge (forces iframe to re-render on iOS)
   (function(){
-    var sc = document.querySelector('iframe.sc-embed');
+    var sc = document.querySelector('iframe.soundcloud-player');
     if(!sc) return;
 
     function kick(){
