@@ -353,9 +353,10 @@ textarea{min-height:120px; resize:vertical}
 }
 
 /* Featured Mix: compact SoundCloud player */
-.featured-mix-player{width:100%; max-width:600px}
-.soundcloud-player{display:block; width:100%; max-width:600px; height:166px; border:0; border-radius:14px; overflow:hidden}
-@media (max-width:600px){.featured-mix-player,.soundcloud-player{max-width:100%}}
+.featured-mix-player{position:relative; isolation:isolate; width:100%; max-width:600px; overflow:visible; background:transparent; border:0; box-shadow:none}
+.featured-mix-player::before{content:""; position:absolute; z-index:0; pointer-events:none; inset:-14px -18px; border-radius:22px; background:radial-gradient(circle at 15% 85%, rgba(255,42,163,.45), transparent 52%), radial-gradient(circle at 75% 35%, rgba(179,0,255,.28), transparent 60%), linear-gradient(135deg, rgba(255,0,136,.22), rgba(179,0,255,.14)); filter:blur(22px); opacity:.68}
+.soundcloud-player{position:relative; z-index:1; display:block; width:100%; max-width:600px; height:166px; border:0; border-radius:14px; overflow:hidden}
+@media (max-width:600px){.featured-mix-player,.soundcloud-player{max-width:100%}.featured-mix-player::before{inset:-10px -12px; filter:blur(18px); opacity:.6}}
 /* GALLERY + LIGHTBOX */
 #gallery{position:relative; padding-bottom:28px; overflow-anchor:auto}
 #gallery .section-head{margin-bottom:12px}
