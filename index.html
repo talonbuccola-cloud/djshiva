@@ -352,45 +352,10 @@ textarea{min-height:120px; resize:vertical}
   display:block;
 }
 
-/* Featured Mix layout: desktop link card, mobile SoundCloud embed */
-.mix-desktop{
-  display:grid;
-  gap:10px;
-  padding:18px;
-}
-.mix-desktop .mix-kicker{
-  margin:0;
-  color:var(--muted);
-  font-size:12px;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-}
-.mix-desktop .mix-title{
-  margin:0;
-  font-size:clamp(20px,2.1vw,28px);
-}
-.mix-desktop .mix-meta{
-  margin:0;
-  color:var(--muted);
-}
-.mix-mobile{
-  display:none;
-}
-.sc-embed{
-  height:220px;
-}
-
-@media (max-width:720px){
-  .mix-desktop{
-    display:none;
-  }
-  .mix-mobile{
-    display:block;
-  }
-  .sc-embed{
-    height:200px;
-  }
-}
+/* Featured Mix: SoundCloud visual player */
+.featured-mix-player{width:100%; max-width:100%}
+.sc-embed{height:450px; max-width:100%}
+@media (max-width:720px){.sc-embed{height:330px}}
 /* GALLERY + LIGHTBOX */
 #gallery{position:relative; padding-bottom:28px; overflow-anchor:auto}
 #gallery .section-head{margin-bottom:12px}
@@ -661,18 +626,9 @@ gtag('config', 'G-SV4LFTPY03');
         <h2 class="h2">Featured Mix</h2>
         <a class="btn ghost" href="https://soundcloud.com/shivatiffany" target="_blank" rel="noopener" id="mixesLink">All Mixes</a>
       </div>
-        <div class="card mix-desktop">
-      <p class="mix-kicker">Featured SoundCloud Track</p>
-      <h3 class="mix-title">no-bologna-(liquid-night-drive-remix) 2.mp3</h3>
-      <p class="mix-meta">Open in SoundCloud for full artwork and playback controls.</p>
-      <div>
-        <a class="btn" href="https://soundcloud.com/shivatiffany/no-bologna-liquid-night-drive" target="_blank" rel="noopener noreferrer">Play on SoundCloud</a>
+      <div class="embed card featured-mix-player">
+        <iframe class="sc-embed" title="No Bologna by DJ Shiva Tiffany on SoundCloud" width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" loading="lazy" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fshivatiffany%2Fno-bologna-liquid-night-drive&color=%23ff2bd6&auto_play=false&show_artwork=true&show_user=true&show_playcount=true&visual=true"></iframe>
       </div>
-    </div>
-    <div class="embed card mix-mobile">
-      <iframe class="sc-embed" width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" title="SoundCloud player: no-bologna-(liquid-night-drive-remix) 2.mp3" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fshivatiffany%2Fno-bologna-liquid-night-drive&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-      <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/shivatiffany" title="ShivaTiffany" target="_blank" rel="noopener noreferrer" style="color: #cccccc; text-decoration: none;">ShivaTiffany</a> &middot; <a href="https://soundcloud.com/shivatiffany/no-bologna-liquid-night-drive" title="no-bologna-(liquid-night-drive-remix) 2.mp3" target="_blank" rel="noopener noreferrer" style="color: #cccccc; text-decoration: none;">no-bologna-(liquid-night-drive-remix) 2.mp3</a></div>
-    </div>
     </section>
 
     <!-- UPCOMING SETS -->
