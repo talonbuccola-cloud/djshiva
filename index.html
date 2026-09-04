@@ -262,7 +262,7 @@ section{margin:48px 0 0}
 .featured-event-info{display:flex; align-items:center; gap:12px; min-width:0; padding:4px}
 .featured-event-info .meta{min-width:0}
 .featured-event-info .where{margin-top:4px}
-.featured-event-info .venue-detail{margin-top:6px; color:var(--ink); font-size:14px; font-weight:600}
+.featured-event-info .venue-detail{margin-top:6px; color:var(--muted); font-size:12px; font-weight:600; letter-spacing:.02em}
 .featured-event-info .location-detail{margin-top:2px; color:var(--muted); font-size:14px}
 .featured-event-info .badge{margin-left:auto; align-self:flex-start}
 .featured-flyer{margin:0; overflow:hidden; border-radius:14px; border:1px solid rgba(255,255,255,.14); background:#050509; box-shadow:0 0 0 1px rgba(255,42,163,.10), 0 0 28px rgba(179,0,255,.16)}
@@ -789,6 +789,7 @@ gtag('config', 'G-SV4LFTPY03');
     flyerWidth: 1080,
     flyerHeight: 1350,
     featured: true,
+    hideStandardCardWhenFeatured: true,
     featuredDisplayExpiresAt: "2026-09-05T00:00:00-07:00",
     detailsUrl: "https://oasis-music-fest-smc.go-gaels.chatgpt.site/preview",
     detailsLabel: "Festival Details",
@@ -986,7 +987,9 @@ gtag('config', 'G-SV4LFTPY03');
     if(featuredEvent){
       gigsEl.insertAdjacentHTML("beforeend", featuredGigMarkup(featuredEvent, fmtDateISOToPretty(featuredEvent.date)));
     }
-    sortedSets.slice(0,4).forEach(function(g){
+    sortedSets.filter(function(g){
+      return g !== featuredEvent || !g.hideStandardCardWhenFeatured;
+    }).slice(0,4).forEach(function(g){
       var d = fmtDateISOToPretty(g.date);
       var html = ''
         + '<div class="card gig">'
@@ -1123,6 +1126,7 @@ var unavailable   = new Set();
       flyerWidth: config.flyerWidth,
       flyerHeight: config.flyerHeight,
       featured: config.featured === true,
+      hideStandardCardWhenFeatured: config.hideStandardCardWhenFeatured === true,
       featuredDisplayExpiresAt: config.featuredDisplayExpiresAt,
       detailsUrl: config.detailsUrl || "",
       detailsLabel: config.detailsLabel || "Event Details"
