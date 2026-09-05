@@ -979,7 +979,6 @@ gtag('config', 'G-SV4LFTPY03');
   function drawGigs(){
     gigsEl.innerHTML = "";
     if(!upcomingSets.length){
-      gigsEl.innerHTML = '<div class="card gig" style="grid-column: span 12;"><div class="meta"><div class="where">No sets announced yet. Check back soon.</div></div></div>';
       return;
     }
     var sortedSets = upcomingSets.slice().sort(function(a,b){ return (a.sortKey || a.date || "").localeCompare(b.sortKey || b.date || ""); });
@@ -989,7 +988,7 @@ gtag('config', 'G-SV4LFTPY03');
     }
     var regularSets = featuredEvent
       ? sortedSets.filter(function(g){ return g !== featuredEvent; }).slice(0,2)
-      : sortedSets.slice(0,4);
+      : sortedSets.slice(0,2);
     regularSets.forEach(function(g){
       var d = fmtDateISOToPretty(g.date);
       var html = ''
