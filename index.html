@@ -987,9 +987,10 @@ gtag('config', 'G-SV4LFTPY03');
     if(featuredEvent){
       gigsEl.insertAdjacentHTML("beforeend", featuredGigMarkup(featuredEvent, fmtDateISOToPretty(featuredEvent.date)));
     }
-    sortedSets.filter(function(g){
-      return g !== featuredEvent || !g.hideStandardCardWhenFeatured;
-    }).slice(0,4).forEach(function(g){
+    var regularSets = featuredEvent
+      ? sortedSets.filter(function(g){ return g !== featuredEvent; }).slice(0,2)
+      : sortedSets.slice(0,4);
+    regularSets.forEach(function(g){
       var d = fmtDateISOToPretty(g.date);
       var html = ''
         + '<div class="card gig">'
